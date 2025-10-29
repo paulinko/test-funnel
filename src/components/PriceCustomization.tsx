@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { showError, showSuccess } from "@/utils/toast";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import PriceSummaryBanner from "./PriceSummaryBanner"; // Import the new banner component
 
 interface ProductVariant {
   id: string;
@@ -116,126 +117,119 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader className="text-center">
-        <CardTitle className="text-3xl font-bold">{t("priceCustomization.title")}</CardTitle>
-        <CardDescription>{t("priceCustomization.description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-8">
-        {/* Product Variant Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <RadioGroup onValueChange={setSelectedProductId} value={selectedProductId} className="col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
-            {productVariants.map((variant) => (
-              <Card
-                key={variant.id}
-                className={cn(
-                  "relative p-6 flex flex-col justify-between items-start border-2 cursor-pointer transition-all duration-200",
-                  selectedProductId === variant.id ? "border-primary ring-2 ring-primary" : "border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
-                )}
-                onClick={() => setSelectedProductId(variant.id)}
-              >
-                <RadioGroupItem value={variant.id} id={variant.id} className="absolute top-4 right-4" />
-                <CardHeader className="p-0 pb-4">
-                  <CardTitle className="text-xl font-semibold">{variant.name}</CardTitle>
-                  <CardDescription>{variant.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <p className="text-4xl font-extrabold text-primary">${(basePrice * variant.priceFactor).toFixed(2)}</p>
-                  <p className="text-sm text-muted-foreground">{t("priceCustomization.startingMonthly")}</p>
-                </CardContent>
-                <Label htmlFor={variant.id} className="absolute inset-0 cursor-pointer"></Label>
+    <>
+      <Card className="w-full max-w-4xl mx-auto mb-24"> {/* Added mb-24 for banner clearance */}
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-bold">{t("priceCustomization.title")}</CardTitle>
+          <CardDescription>{t("priceCustomization.description")}</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-8">
+          {/* Product Variant Selection */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <RadioGroup onValueChange={setSelectedProductId} value={selectedProductId} className="col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+              {productVariants.map((variant) => (
+                <Card
+                  key={variant.id}
+                  className={cn(
+                    "relative p-6 flex flex-col justify-between items-start border-2 cursor-pointer transition-all duration-200",
+                    selectedProductId === variant.id ? "border-primary ring-2 ring-primary" : "border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
+                  )}
+                  onClick={() => setSelectedProductId(variant.id)}
+                >
+                  <RadioGroupItem value={variant.id} id={variant.id} className="absolute top-4 right-4" />
+                  <CardHeader className="p-0 pb-4">
+                    <CardTitle className="text-xl font-semibold">{variant.name}</CardTitle>
+                    <CardDescription>{variant.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <p className="text-4xl font-extrabold text-primary">${(basePrice * variant.priceFactor).toFixed(2)}</p>
+                    <p className="text-sm text-muted-foreground">{t("priceCustomization.startingMonthly")}</p>
+                  </CardContent>
+                  <Label htmlFor={variant.id} className="absolute inset-0 cursor-pointer"></Label>
+                </Card>
+              ))}
+            </RadioGroup>
+          </div>
+
+          {/* Add-on Coverages */}
+          <div className="space-y-6 border-t pt-6">
+            <h3 className="text-2xl font-bold text-center">{t("priceCustomization.customizeYourPlan")}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="p-6 flex items-center justify-between">
+                <div className="space-y-1">
+                  <Label htmlFor="preexisting-coverage" className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    {t("priceCustomization.preexistingConditions")}
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t("priceCustomization.preexistingConditionsDescription")}
+                  </p>
+                </div>
+                <Switch
+                  id="preexisting-coverage"
+                  checked={preexistingCoverage}
+                  onCheckedChange={setPreexistingCoverage}
+                />
               </Card>
-            ))}
-          </RadioGroup>
-        </div>
 
-        {/* Current Estimated Price */}
-        <div className="text-center mt-8">
-          <p className="text-lg text-muted-foreground">{t("priceCustomization.currentEstimatedMonthlyPremium")}</p>
-          <p className="text-6xl font-extrabold text-primary">${currentFinalPrice.toFixed(2)}</p>
-        </div>
+              <Card className="p-6 flex items-center justify-between">
+                <div className="space-y-1">
+                  <Label htmlFor="worldwide-coverage" className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    {t("priceCustomization.worldwideCoverage")}
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t("priceCustomization.worldwideCoverageDescription")}
+                  </p>
+                </div>
+                <Switch
+                  id="worldwide-coverage"
+                  checked={worldwideCoverage}
+                  onCheckedChange={setWorldwideCoverage}
+                />
+              </Card>
+            </div>
+          </div>
 
-        {/* Add-on Coverages */}
-        <div className="space-y-6 border-t pt-6">
-          <h3 className="text-2xl font-bold text-center">{t("priceCustomization.customizeYourPlan")}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="p-6 flex items-center justify-between">
-              <div className="space-y-1">
-                <Label htmlFor="preexisting-coverage" className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  {t("priceCustomization.preexistingConditions")}
-                </Label>
-                <p className="text-sm text-muted-foreground">
-                  {t("priceCustomization.preexistingConditionsDescription")}
-                </p>
+          {/* Yearly Deductible - Updated to selectable badges */}
+          <div className="space-y-6 border-t pt-6">
+            <h3 className="text-2xl font-bold text-center">{t("priceCustomization.adjustDeductible")}</h3>
+            <Card className="p-6 space-y-4">
+              <Label className="text-lg font-medium block mb-4">
+                {t("priceCustomization.yearlyDeductible")}
+              </Label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {deductibleOptions.map((deductible) => (
+                  <div key={deductible} className="flex flex-col items-center">
+                    <Button
+                      variant={yearlyDeductible === deductible ? "default" : "outline"}
+                      onClick={() => setYearlyDeductible(deductible)}
+                      className={cn(
+                        "w-full py-4 text-lg font-semibold",
+                        yearlyDeductible === deductible ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent"
+                      )}
+                    >
+                      CHF {deductible}
+                    </Button>
+                    {deductible === 300 && (
+                      <span className="text-xs text-muted-foreground mt-1">
+                        {t("priceCustomization.recommended")}
+                      </span>
+                    )}
+                  </div>
+                ))}
               </div>
-              <Switch
-                id="preexisting-coverage"
-                checked={preexistingCoverage}
-                onCheckedChange={setPreexistingCoverage}
-              />
-            </Card>
-
-            <Card className="p-6 flex items-center justify-between">
-              <div className="space-y-1">
-                <Label htmlFor="worldwide-coverage" className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  {t("priceCustomization.worldwideCoverage")}
-                </Label>
-                <p className="text-sm text-muted-foreground">
-                  {t("priceCustomization.worldwideCoverageDescription")}
-                </p>
-              </div>
-              <Switch
-                id="worldwide-coverage"
-                checked={worldwideCoverage}
-                onCheckedChange={setWorldwideCoverage}
-              />
+              <p className="text-sm text-muted-foreground mt-4">
+                {t("priceCustomization.deductibleInfo")}
+              </p>
             </Card>
           </div>
-        </div>
-
-        {/* Yearly Deductible - Updated to selectable badges */}
-        <div className="space-y-6 border-t pt-6">
-          <h3 className="text-2xl font-bold text-center">{t("priceCustomization.adjustDeductible")}</h3>
-          <Card className="p-6 space-y-4">
-            <Label className="text-lg font-medium block mb-4">
-              {t("priceCustomization.yearlyDeductible")}
-            </Label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-              {deductibleOptions.map((deductible) => (
-                <div key={deductible} className="flex flex-col items-center">
-                  <Button
-                    variant={yearlyDeductible === deductible ? "default" : "outline"}
-                    onClick={() => setYearlyDeductible(deductible)}
-                    className={cn(
-                      "w-full py-4 text-lg font-semibold",
-                      yearlyDeductible === deductible ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent"
-                    )}
-                  >
-                    CHF {deductible}
-                  </Button>
-                  {deductible === 300 && (
-                    <span className="text-xs text-muted-foreground mt-1">
-                      {t("priceCustomization.recommended")}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              {t("priceCustomization.deductibleInfo")}
-            </p>
-          </Card>
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-between gap-4 pt-6">
-        <Button variant="outline" onClick={onBack} className="w-full">
-          {t("priceCustomization.back")}
-        </Button>
-        <Button onClick={handleSubmit} className="w-full">
-          {t("priceCustomization.continue")}
-        </Button>
-      </CardFooter>
-    </Card>
+        </CardContent>
+      </Card>
+      <PriceSummaryBanner
+        currentFinalPrice={currentFinalPrice}
+        onBack={onBack}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };
 
