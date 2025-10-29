@@ -26,13 +26,15 @@ interface PriceCustomizationProps {
     finalPrice: number,
     preexistingCoverage: boolean,
     worldwideCoverage: boolean,
-    yearlyDeductible: number
+    yearlyDeductible: number,
+    coPayCoveragePercentage: number // New parameter
   ) => void;
   onBack: () => void;
   initialSelectedProduct?: ProductVariant | null;
   initialPreexistingCoverage?: boolean;
   initialWorldwideCoverage?: boolean;
   initialYearlyDeductible?: number;
+  initialCoPayCoveragePercentage?: number; // New prop
 }
 
 const productVariants: ProductVariant[] = [
@@ -57,6 +59,7 @@ const productVariants: ProductVariant[] = [
 ];
 
 const deductibleOptions = [0, 150, 300, 500, 1000]; // New deductible options
+const coPayCoverageOptions = [100, 80]; // 100% or 80% coverage
 
 const PriceCustomization: React.FC<PriceCustomizationProps> = ({
   petType,
@@ -69,12 +72,14 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
   initialPreexistingCoverage = false,
   initialWorldwideCoverage = false,
   initialYearlyDeductible = 300, // Default to 300 for recommended option
+  initialCoPayCoveragePercentage = 100, // Default to 100% coverage
 }) => {
   const { t } = useTranslation();
   const [selectedProductId, setSelectedProductId] = React.useState<string>(initialSelectedProduct?.id || productVariants[0].id);
   const [preexistingCoverage, setPreexistingCoverage] = React.useState<boolean>(initialPreexistingCoverage);
   const [worldwideCoverage, setWorldwideCoverage] = React.useState<boolean>(initialWorldwideCoverage);
   const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(initialYearlyDeductible);
+  const [coPayCoveragePercentage, setCoPayCoveragePercentage] = React.useState<number>(initialCoPayCoveragePercentage); // New state
 
   const calculateFinalPrice = React.useCallback(() => {
     const selectedProduct = productVariants.find(p => p.id === selectedProductId);
@@ -91,7 +96,6 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
     }
 
     // Deductible impact (higher deductible, lower premium)
-    // Adjust premium based on selected deductible
     const deductibleAdjustments: { [key: number]: number } = {
       0: 30,   // Highest premium for 0 deductible
       150: 20,
@@ -99,10 +103,17 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
       500: -10,
       1000: -30 // Lowest premium for 1000 deductible
     };
-    currentPrice += deductibleAdjustments[yearlyDeductible] || 0; // Add adjustment, default to 0 if not found
+    currentPrice += deductibleAdjustments[yearlyDeductible] || 0;
+
+    // Co-pay coverage impact (lower coverage percentage, lower premium)
+    const coPayAdjustments: { [key: number]: number } = {
+      100: 25, // Higher premium for 100% coverage (0% co-pay)
+      80: 0,   // Base premium for 80% coverage (20% co-pay)
+    };
+    currentPrice += coPayAdjustments[coPayCoveragePercentage] || 0;
 
     return Math.max(5, currentPrice); // Ensure price is not negative or too low
-  }, [basePrice, selectedProductId, preexistingCoverage, worldwideCoverage, yearlyDeductible]);
+  }, [basePrice, selectedProductId, preexistingCoverage, worldwideCoverage, yearlyDeductible, coPayCoveragePercentage]);
 
   const currentFinalPrice = calculateFinalPrice();
 
@@ -112,13 +123,13 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
       showError(t("priceCustomization.validation.selectProductVariant"));
       return;
     }
-    onCustomizeProduct(selectedProduct, currentFinalPrice, preexistingCoverage, worldwideCoverage, yearlyDeductible);
+    onCustomizeProduct(selectedProduct, currentFinalPrice, preexistingCoverage, worldwideCoverage, yearlyDeductible, coPayCoveragePercentage);
     showSuccess(t("priceCustomization.successToast", { productName: selectedProduct.name }));
   };
 
-  // Dynamic example calculation for deductible impact
+  // Dynamic example calculation for deductible and co-pay impact
   const exampleVetCost = 490; // CHF
-  const coPayPercentage = 0.20; // 20%
+  const coPayPercentage = (100 - coPayCoveragePercentage) / 100; // Derived from coPayCoveragePercentage
 
   const deductibleApplied = Math.min(yearlyDeductible, exampleVetCost);
   const remainingAfterDeductible = Math.max(0, exampleVetCost - deductibleApplied);
@@ -229,6 +240,45 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
               </div>
               <p className="text-sm text-muted-foreground mt-4">
                 {t("priceCustomization.deductibleInfo")}
+              </p>
+            </Card>
+          </div>
+
+          {/* Co-pay Coverage (Kostenübernahme) - New Section */}
+          <div className="space-y-6 border-t pt-6">
+            <h3 className="text-2xl font-bold text-center">{t("priceCustomization.adjustCoPayCoverage")}</h3>
+            <Card className="p-6 space-y-4">
+              <Label className="text-lg font-medium block mb-4">
+                {t("priceCustomization.coPayCoverage")}
+              </Label>
+              <div className="grid grid-cols-2 gap-3">
+                {coPayCoverageOptions.map((coverage) => (
+                  <div key={coverage} className="flex flex-col items-center">
+                    <Button
+                      variant={coPayCoveragePercentage === coverage ? "default" : "outline"}
+                      onClick={() => setCoPayCoveragePercentage(coverage)}
+                      className={cn(
+                        "w-full py-4 text-lg font-semibold",
+                        coPayCoveragePercentage === coverage ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent"
+                      )}
+                    >
+                      {coverage}%
+                    </Button>
+                    {coverage === 100 && (
+                      <span className="text-xs text-muted-foreground mt-1">
+                        {t("priceCustomization.fullCoverage")}
+                      </span>
+                    )}
+                    {coverage === 80 && (
+                      <span className="text-xs text-muted-foreground mt-1">
+                        {t("priceCustomization.standardCoverage")}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                {t("priceCustomization.coPayCoverageInfo")}
               </p>
             </Card>
           </div>

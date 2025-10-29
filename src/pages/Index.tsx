@@ -33,7 +33,8 @@ const Index = () => {
   const [contactPhone, setContactPhone] = React.useState<string | null>(null);
   const [preexistingCoverage, setPreexistingCoverage] = React.useState<boolean>(false);
   const [worldwideCoverage, setWorldwideCoverage] = React.useState<boolean>(false);
-  const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(250);
+  const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(300); // Default to 300
+  const [coPayCoveragePercentage, setCoPayCoveragePercentage] = React.useState<number>(100); // New state, default to 100%
 
   const { t } = useTranslation();
 
@@ -78,13 +79,15 @@ const Index = () => {
     price: number,
     preexisting: boolean,
     worldwide: boolean,
-    deductible: number
+    deductible: number,
+    coPayCoverage: number // New parameter
   ) => {
     setSelectedProduct(product);
     setFinalPrice(price);
     setPreexistingCoverage(preexisting);
     setWorldwideCoverage(worldwide);
     setYearlyDeductible(deductible);
+    setCoPayCoveragePercentage(coPayCoverage); // Set new state
     setCurrentStep("contactDetails");
   };
 
@@ -104,6 +107,7 @@ const Index = () => {
       preexistingCoverage,
       worldwideCoverage,
       yearlyDeductible,
+      coPayCoveragePercentage, // Include in log
       contactName: name,
       contactEmail: email,
       contactPhone: phone,
@@ -137,7 +141,8 @@ const Index = () => {
     setContactPhone(null);
     setPreexistingCoverage(false);
     setWorldwideCoverage(false);
-    setYearlyDeductible(250);
+    setYearlyDeductible(300); // Reset to default
+    setCoPayCoveragePercentage(100); // Reset to default
     setCurrentStep("petSelection");
   };
 
@@ -169,6 +174,7 @@ const Index = () => {
           initialPreexistingCoverage={preexistingCoverage}
           initialWorldwideCoverage={worldwideCoverage}
           initialYearlyDeductible={yearlyDeductible}
+          initialCoPayCoveragePercentage={coPayCoveragePercentage} // Pass new prop
         />
       )}
 
@@ -209,6 +215,7 @@ const Index = () => {
               <p><strong>{t("confirmation.preexistingConditions")}</strong> {preexistingCoverage ? t("common.yes") : t("common.no")}</p>
               <p><strong>{t("common.worldwideCoverage")}</strong> {worldwideCoverage ? t("common.yes") : t("common.no")}</p>
               <p><strong>{t("common.yearlyDeductible")}</strong> ${yearlyDeductible.toFixed(2)}</p>
+              <p><strong>{t("common.coPayCoverage")}</strong> {coPayCoveragePercentage}%</p>
             </div>
             <p className="text-sm text-muted-foreground mt-2">
               {t("confirmation.confirmationEmailSent", { email: contactEmail })}
