@@ -1,16 +1,16 @@
 import React from "react";
 import PetSelection from "@/components/PetSelection";
 import PetDetails from "@/components/PetDetails";
-import PricingDisplay from "@/components/PricingDisplay";
-import PriceCustomization from "@/components/PriceCustomization"; // Renamed import
+import PriceCustomization from "@/components/PriceCustomization";
 import ContactDetailsForm from "@/components/ContactDetailsForm";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { showSuccess, showError } from "@/utils/toast"; // Import toast functions
 
-type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "priceCustomization" | "contactDetails" | "confirmation"; // Updated step name
+type FunnelStep = "petSelection" | "petDetails" | "priceCustomization" | "contactDetails" | "confirmation"; // Updated step names
 
 interface ProductVariant {
   id: string;
@@ -30,10 +30,9 @@ const Index = () => {
   const [contactName, setContactName] = React.useState<string | null>(null);
   const [contactEmail, setContactEmail] = React.useState<string | null>(null);
   const [contactPhone, setContactPhone] = React.useState<string | null>(null);
-  // New state for customization options
   const [preexistingCoverage, setPreexistingCoverage] = React.useState<boolean>(false);
   const [worldwideCoverage, setWorldwideCoverage] = React.useState<boolean>(false);
-  const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(250); // Default deductible
+  const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(250);
 
   const { t } = useTranslation();
 
@@ -42,15 +41,34 @@ const Index = () => {
     setCurrentStep("petDetails");
   };
 
-  const handlePetDetailsSubmit = (selectedBreed: string, selectedAge: number) => {
+  const handlePetDetailsSubmit = async (selectedBreed: string, selectedAge: number) => {
     setBreed(selectedBreed);
     setAge(selectedAge);
-    setCurrentStep("pricingDisplay");
-  };
 
-  const handleContinueToPriceCustomization = (price: number) => {
-    setBasePrice(price);
-    setCurrentStep("priceCustomization"); // Updated step name
+    // Simulate API call for base price calculation
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate loading
+
+      let calculatedBasePrice = 50;
+      if (petType === "dog") {
+        calculatedBasePrice += 20;
+      } else {
+        calculatedBasePrice += 10;
+      }
+
+      calculatedBasePrice += selectedAge * 5;
+
+      if (selectedBreed.includes("Bulldog") || selectedBreed.includes("Sphynx")) {
+        calculatedBasePrice += 15;
+      }
+
+      setBasePrice(calculatedBasePrice);
+      showSuccess(t("common.priceCalculatedSuccess")); // New translation key
+      setCurrentStep("priceCustomization");
+    } catch (err) {
+      console.error("Failed to calculate base price:", err);
+      showError(t("common.errorCalculatingPrice")); // New translation key
+    }
   };
 
   const handlePriceCustomizationSubmit = (
@@ -80,20 +98,11 @@ const Index = () => {
     setCurrentStep("petDetails");
   };
 
-  const handleBackToPricing = () => {
-    setSelectedProduct(null);
-    setFinalPrice(null);
-    setPreexistingCoverage(false);
-    setWorldwideCoverage(false);
-    setYearlyDeductible(250); // Reset deductible
-    setCurrentStep("pricingDisplay");
-  };
-
   const handleBackToPriceCustomization = () => {
     setContactName(null);
     setContactEmail(null);
     setContactPhone(null);
-    setCurrentStep("priceCustomization"); // Updated step name
+    setCurrentStep("priceCustomization");
   };
 
   const handleResetFunnel = () => {
@@ -106,7 +115,7 @@ const Index = () => {
     setContactName(null);
     setContactEmail(null);
     setContactPhone(null);
-    setPreexistingCoverage(false); // Reset customization options
+    setPreexistingCoverage(false);
     setWorldwideCoverage(false);
     setYearlyDeductible(250);
     setCurrentStep("petSelection");
@@ -128,24 +137,14 @@ const Index = () => {
         />
       )}
 
-      {currentStep === "pricingDisplay" && petType && breed && age !== null && (
-        <PricingDisplay
-          petType={petType}
-          breed={breed}
-          age={age}
-          onContinue={handleContinueToPriceCustomization} // Updated handler
-          onBackToSelection={handleBackToDetails}
-        />
-      )}
-
       {currentStep === "priceCustomization" && petType && breed && age !== null && basePrice !== null && (
-        <PriceCustomization // Renamed component
+        <PriceCustomization
           petType={petType}
           breed={breed}
           age={age}
           basePrice={basePrice}
-          onCustomizeProduct={handlePriceCustomizationSubmit} // Updated prop name
-          onBack={handleBackToPricing}
+          onCustomizeProduct={handlePriceCustomizationSubmit}
+          onBack={handleBackToDetails}
           initialSelectedProduct={selectedProduct}
           initialPreexistingCoverage={preexistingCoverage}
           initialWorldwideCoverage={worldwideCoverage}
@@ -156,7 +155,7 @@ const Index = () => {
       {currentStep === "contactDetails" && selectedProduct && finalPrice !== null && (
         <ContactDetailsForm
           onDetailsSubmit={handleContactDetailsSubmit}
-          onBack={handleBackToPriceCustomization} // Updated handler
+          onBack={handleBackToPriceCustomization}
           initialName={contactName || ""}
           initialEmail={contactEmail || ""}
           initialPhone={contactPhone || ""}
@@ -187,8 +186,8 @@ const Index = () => {
               <h3 className="text-xl font-semibold mt-4">{t("confirmation.coverageDetails")}</h3>
               <p><strong>{t("confirmation.planType")}</strong> {selectedProduct.name}</p>
               <p><strong>{t("confirmation.preexistingConditions")}</strong> {preexistingCoverage ? t("common.yes") : t("common.no")}</p>
-              <p><strong>{t("confirmation.worldwideCoverage")}</strong> {worldwideCoverage ? t("common.yes") : t("common.no")}</p>
-              <p><strong>{t("confirmation.yearlyDeductible")}</strong> ${yearlyDeductible.toFixed(2)}</p>
+              <p><strong>{t("common.worldwideCoverage")}</strong> {worldwideCoverage ? t("common.yes") : t("common.no")}</p>
+              <p><strong>{t("common.yearlyDeductible")}</strong> ${yearlyDeductible.toFixed(2)}</p>
             </div>
             <p className="text-sm text-muted-foreground mt-2">
               {t("confirmation.confirmationEmailSent", { email: contactEmail })}

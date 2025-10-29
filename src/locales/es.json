@@ -22,23 +22,6 @@
       "validAge": "Por favor, introduce una edad válida (1-25 años)."
     }
   },
-  "pricingDisplay": {
-    "title": "Tu Cotización de Seguro",
-    "description": "Aquí tienes la cotización personalizada para tu mascota.",
-    "calculating": "Calculando tu precio...",
-    "estimatedMonthlyPremium": "Prima Mensual Estimada",
-    "productConfiguration": "Configuración del Producto:",
-    "petType": "Tipo de Mascota:",
-    "breed": "Raza:",
-    "age": "Edad:",
-    "years": "años",
-    "mockPriceDisclaimer": "Este es un precio y configuración simulados. Se aplican los términos y condiciones reales.",
-    "startOver": "Empezar de Nuevo",
-    "continue": "Continuar",
-    "errorFetchingPrice": "Error al obtener el precio. Por favor, inténtalo de nuevo.",
-    "priceFetchedSuccess": "¡Precio obtenido con éxito!",
-    "errorToast": "Error al obtener el precio."
-  },
   "priceCustomization": {
     "title": "Personaliza Tu Plan",
     "description": "Selecciona un plan base y añade coberturas opcionales para adaptar el seguro de tu mascota.",
@@ -102,6 +85,8 @@
   },
   "common": {
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "priceCalculatedSuccess": "¡Precio base calculado con éxito!",
+    "errorCalculatingPrice": "Error al calcular el precio base. Por favor, inténtalo de nuevo."
   }
 }

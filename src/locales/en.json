@@ -22,23 +22,6 @@
       "validAge": "Please enter a valid age (1-25 years)."
     }
   },
-  "pricingDisplay": {
-    "title": "Your Insurance Quote",
-    "description": "Here's the personalized quote for your pet.",
-    "calculating": "Calculating your price...",
-    "estimatedMonthlyPremium": "Estimated Monthly Premium",
-    "productConfiguration": "Product Configuration:",
-    "petType": "Pet Type:",
-    "breed": "Breed:",
-    "age": "Age:",
-    "years": "years",
-    "mockPriceDisclaimer": "This is a mock price and configuration. Actual terms and conditions apply.",
-    "startOver": "Start Over",
-    "continue": "Continue",
-    "errorFetchingPrice": "Failed to fetch pricing. Please try again.",
-    "priceFetchedSuccess": "Price fetched successfully!",
-    "errorToast": "Failed to fetch pricing."
-  },
   "priceCustomization": {
     "title": "Customize Your Plan",
     "description": "Select a base plan and add optional coverages to tailor your pet insurance.",
@@ -102,6 +85,8 @@
   },
   "common": {
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "priceCalculatedSuccess": "Base price calculated successfully!",
+    "errorCalculatingPrice": "Failed to calculate base price. Please try again."
   }
 }
