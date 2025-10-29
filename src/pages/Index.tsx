@@ -2,15 +2,15 @@ import React from "react";
 import PetSelection from "@/components/PetSelection";
 import PetDetails from "@/components/PetDetails";
 import PricingDisplay from "@/components/PricingDisplay";
-import ProductSelection from "@/components/ProductSelection";
+import PriceCustomization from "@/components/PriceCustomization"; // Renamed import
 import ContactDetailsForm from "@/components/ContactDetailsForm";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import LanguageSwitcher from "@/components/LanguageSwitcher"; // New import
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "react-i18next"; // New import
+import { useTranslation } from "react-i18next";
 
-type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "productSelection" | "contactDetails" | "confirmation";
+type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "priceCustomization" | "contactDetails" | "confirmation"; // Updated step name
 
 interface ProductVariant {
   id: string;
@@ -30,7 +30,12 @@ const Index = () => {
   const [contactName, setContactName] = React.useState<string | null>(null);
   const [contactEmail, setContactEmail] = React.useState<string | null>(null);
   const [contactPhone, setContactPhone] = React.useState<string | null>(null);
-  const { t } = useTranslation(); // New: useTranslation hook
+  // New state for customization options
+  const [preexistingCoverage, setPreexistingCoverage] = React.useState<boolean>(false);
+  const [worldwideCoverage, setWorldwideCoverage] = React.useState<boolean>(false);
+  const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(250); // Default deductible
+
+  const { t } = useTranslation();
 
   const handlePetSelection = (selectedPetType: "cat" | "dog") => {
     setPetType(selectedPetType);
@@ -43,14 +48,23 @@ const Index = () => {
     setCurrentStep("pricingDisplay");
   };
 
-  const handleContinueToProductSelection = (price: number) => {
+  const handleContinueToPriceCustomization = (price: number) => {
     setBasePrice(price);
-    setCurrentStep("productSelection");
+    setCurrentStep("priceCustomization"); // Updated step name
   };
 
-  const handleProductSelection = (product: ProductVariant, price: number) => {
+  const handlePriceCustomizationSubmit = (
+    product: ProductVariant,
+    price: number,
+    preexisting: boolean,
+    worldwide: boolean,
+    deductible: number
+  ) => {
     setSelectedProduct(product);
     setFinalPrice(price);
+    setPreexistingCoverage(preexisting);
+    setWorldwideCoverage(worldwide);
+    setYearlyDeductible(deductible);
     setCurrentStep("contactDetails");
   };
 
@@ -69,14 +83,17 @@ const Index = () => {
   const handleBackToPricing = () => {
     setSelectedProduct(null);
     setFinalPrice(null);
+    setPreexistingCoverage(false);
+    setWorldwideCoverage(false);
+    setYearlyDeductible(250); // Reset deductible
     setCurrentStep("pricingDisplay");
   };
 
-  const handleBackToProductSelection = () => {
+  const handleBackToPriceCustomization = () => {
     setContactName(null);
     setContactEmail(null);
     setContactPhone(null);
-    setCurrentStep("productSelection");
+    setCurrentStep("priceCustomization"); // Updated step name
   };
 
   const handleResetFunnel = () => {
@@ -89,12 +106,15 @@ const Index = () => {
     setContactName(null);
     setContactEmail(null);
     setContactPhone(null);
+    setPreexistingCoverage(false); // Reset customization options
+    setWorldwideCoverage(false);
+    setYearlyDeductible(250);
     setCurrentStep("petSelection");
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4 relative"> {/* Added relative for LanguageSwitcher positioning */}
-      <LanguageSwitcher /> {/* New: Language switcher */}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4 relative">
+      <LanguageSwitcher />
 
       {currentStep === "petSelection" && (
         <PetSelection onSelectPet={handlePetSelection} selectedPetType={petType} />
@@ -113,26 +133,30 @@ const Index = () => {
           petType={petType}
           breed={breed}
           age={age}
-          onContinue={handleContinueToProductSelection}
+          onContinue={handleContinueToPriceCustomization} // Updated handler
           onBackToSelection={handleBackToDetails}
         />
       )}
 
-      {currentStep === "productSelection" && petType && breed && age !== null && basePrice !== null && (
-        <ProductSelection
+      {currentStep === "priceCustomization" && petType && breed && age !== null && basePrice !== null && (
+        <PriceCustomization // Renamed component
           petType={petType}
           breed={breed}
           age={age}
           basePrice={basePrice}
-          onSelectProduct={handleProductSelection}
+          onCustomizeProduct={handlePriceCustomizationSubmit} // Updated prop name
           onBack={handleBackToPricing}
+          initialSelectedProduct={selectedProduct}
+          initialPreexistingCoverage={preexistingCoverage}
+          initialWorldwideCoverage={worldwideCoverage}
+          initialYearlyDeductible={yearlyDeductible}
         />
       )}
 
       {currentStep === "contactDetails" && selectedProduct && finalPrice !== null && (
         <ContactDetailsForm
           onDetailsSubmit={handleContactDetailsSubmit}
-          onBack={handleBackToProductSelection}
+          onBack={handleBackToPriceCustomization} // Updated handler
           initialName={contactName || ""}
           initialEmail={contactEmail || ""}
           initialPhone={contactPhone || ""}
@@ -160,6 +184,11 @@ const Index = () => {
               <p><strong>{t("confirmation.name")}</strong> {contactName}</p>
               <p><strong>{t("confirmation.email")}</strong> {contactEmail}</p>
               {contactPhone && <p><strong>{t("confirmation.phone")}</strong> {contactPhone}</p>}
+              <h3 className="text-xl font-semibold mt-4">{t("confirmation.coverageDetails")}</h3>
+              <p><strong>{t("confirmation.planType")}</strong> {selectedProduct.name}</p>
+              <p><strong>{t("confirmation.preexistingConditions")}</strong> {preexistingCoverage ? t("common.yes") : t("common.no")}</p>
+              <p><strong>{t("confirmation.worldwideCoverage")}</strong> {worldwideCoverage ? t("common.yes") : t("common.no")}</p>
+              <p><strong>{t("confirmation.yearlyDeductible")}</strong> ${yearlyDeductible.toFixed(2)}</p>
             </div>
             <p className="text-sm text-muted-foreground mt-2">
               {t("confirmation.confirmationEmailSent", { email: contactEmail })}

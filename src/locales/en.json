@@ -39,26 +39,25 @@
     "priceFetchedSuccess": "Price fetched successfully!",
     "errorToast": "Failed to fetch pricing."
   },
-  "productSelection": {
-    "title": "Choose Your Plan",
-    "description": "Select the insurance plan that best fits your pet's needs.",
-    "select": "Select",
-    "planName": "Plan Name",
-    "planDescription": "Description",
-    "monthlyPrice": "Monthly Price",
-    "basicPlanName": "Basic Plan",
-    "basicPlanDescription": "Covers accidents and illnesses. Essential care for your pet.",
-    "standardPlanName": "Standard Plan",
-    "standardPlanDescription": "Includes Basic Plan plus routine wellness exams and vaccinations.",
-    "premiumPlanName": "Premium Plan",
-    "premiumPlanDescription": "Comprehensive coverage including dental care and behavioral therapy.",
+  "priceCustomization": {
+    "title": "Customize Your Plan",
+    "description": "Select a base plan and add optional coverages to tailor your pet insurance.",
+    "startingMonthly": "starting monthly",
+    "currentEstimatedMonthlyPremium": "Current Estimated Monthly Premium",
+    "customizeYourPlan": "Add-on Coverages",
+    "preexistingConditions": "Preexisting Condition Coverage",
+    "preexistingConditionsDescription": "Covers conditions your pet had before the policy started.",
+    "worldwideCoverage": "Worldwide Coverage",
+    "worldwideCoverageDescription": "Extends your pet's coverage globally for travel.",
+    "adjustDeductible": "Adjust Yearly Deductible",
+    "yearlyDeductible": "Yearly Deductible",
+    "deductibleInfo": "A higher deductible typically results in a lower monthly premium.",
     "back": "Back",
-    "selectProduct": "Select Product",
-    "disclaimer": "Prices are estimates based on your pet's details: {{petType}}, {{breed}}, {{age}} years old.",
+    "continue": "Continue",
     "validation": {
       "selectProductVariant": "Please select a product variant."
     },
-    "successToast": "You selected the {{productName}}!"
+    "successToast": "You customized the {{productName}} plan!"
   },
   "contactDetails": {
     "title": "Your Contact Details",
@@ -87,6 +86,11 @@
     "name": "Name:",
     "email": "Email:",
     "phone": "Phone:",
+    "coverageDetails": "Coverage Details:",
+    "planType": "Plan Type:",
+    "preexistingConditions": "Preexisting Conditions:",
+    "worldwideCoverage": "Worldwide Coverage:",
+    "yearlyDeductible": "Yearly Deductible:",
     "confirmationEmailSent": "A confirmation email with your policy details has been sent to {{email}}.",
     "startNewQuote": "Start a New Quote"
   },
@@ -95,5 +99,9 @@
     "title": "404",
     "oops": "Oops! Page not found",
     "returnHome": "Return to Home"
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No"
   }
 }

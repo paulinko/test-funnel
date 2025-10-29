@@ -39,26 +39,25 @@
     "priceFetchedSuccess": "¡Precio obtenido con éxito!",
     "errorToast": "Error al obtener el precio."
   },
-  "productSelection": {
-    "title": "Elige Tu Plan",
-    "description": "Selecciona el plan de seguro que mejor se adapte a las necesidades de tu mascota.",
-    "select": "Seleccionar",
-    "planName": "Nombre del Plan",
-    "planDescription": "Descripción",
-    "monthlyPrice": "Precio Mensual",
-    "basicPlanName": "Plan Básico",
-    "basicPlanDescription": "Cubre accidentes y enfermedades. Cuidado esencial para tu mascota.",
-    "standardPlanName": "Plan Estándar",
-    "standardPlanDescription": "Incluye Plan Básico más exámenes de bienestar rutinarios y vacunas.",
-    "premiumPlanName": "Plan Premium",
-    "premiumPlanDescription": "Cobertura completa que incluye cuidado dental y terapia conductual.",
+  "priceCustomization": {
+    "title": "Personaliza Tu Plan",
+    "description": "Selecciona un plan base y añade coberturas opcionales para adaptar el seguro de tu mascota.",
+    "startingMonthly": "a partir de mensual",
+    "currentEstimatedMonthlyPremium": "Prima Mensual Estimada Actual",
+    "customizeYourPlan": "Coberturas Adicionales",
+    "preexistingConditions": "Cobertura de Condiciones Preexistentes",
+    "preexistingConditionsDescription": "Cubre condiciones que tu mascota tenía antes de que comenzara la póliza.",
+    "worldwideCoverage": "Cobertura Mundial",
+    "worldwideCoverageDescription": "Extiende la cobertura de tu mascota a nivel global para viajes.",
+    "adjustDeductible": "Ajustar Deducible Anual",
+    "yearlyDeductible": "Deducible Anual",
+    "deductibleInfo": "Un deducible más alto generalmente resulta en una prima mensual más baja.",
     "back": "Atrás",
-    "selectProduct": "Seleccionar Producto",
-    "disclaimer": "Los precios son estimaciones basadas en los detalles de tu mascota: {{petType}}, {{breed}}, {{age}} años.",
+    "continue": "Continuar",
     "validation": {
       "selectProductVariant": "Por favor, selecciona una variante de producto."
     },
-    "successToast": "¡Has seleccionado el plan {{productName}}!"
+    "successToast": "¡Has personalizado el plan {{productName}}!"
   },
   "contactDetails": {
     "title": "Tus Datos de Contacto",
@@ -87,6 +86,11 @@
     "name": "Nombre:",
     "email": "Correo Electrónico:",
     "phone": "Teléfono:",
+    "coverageDetails": "Detalles de la Cobertura:",
+    "planType": "Tipo de Plan:",
+    "preexistingConditions": "¿Condiciones Preexistentes?",
+    "worldwideCoverage": "¿Cobertura Mundial?",
+    "yearlyDeductible": "Deducible Anual:",
     "confirmationEmailSent": "Se ha enviado un correo electrónico de confirmación con los detalles de tu póliza a {{email}}.",
     "startNewQuote": "Iniciar Nueva Cotización"
   },
@@ -95,5 +99,9 @@
     "title": "404",
     "oops": "¡Ups! Página no encontrada",
     "returnHome": "Volver al Inicio"
+  },
+  "common": {
+    "yes": "Sí",
+    "no": "No"
   }
 }
