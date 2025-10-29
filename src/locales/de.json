@@ -1,0 +1,112 @@
+{
+  "common": {
+    "yes": "Ja",
+    "no": "Nein",
+    "priceCalculatedSuccess": "Grundpreis erfolgreich berechnet!",
+    "errorCalculatingPrice": "Fehler beim Berechnen des Grundpreises. Bitte versuchen Sie es erneut.",
+    "worldwideCoverage": "Weltweite Abdeckung",
+    "yearlyDeductible": "Jährlicher Selbstbehalt",
+    "coPayCoverage": "Kostenübernahme",
+    "yourCat": "Ihre Katze",
+    "yourDog": "Ihr Hund"
+  },
+  "notFound": {
+    "title": "404 - Seite nicht gefunden",
+    "oops": "Hoppla! Die gesuchte Seite existiert nicht.",
+    "returnHome": "Zurück zur Startseite"
+  },
+  "petSelection": {
+    "title": "Wählen Sie Ihr Haustier",
+    "description": "Wählen Sie, ob Sie eine Versicherung für einen Hund oder eine Katze suchen.",
+    "dog": "Hund",
+    "cat": "Katze",
+    "next": "Weiter"
+  },
+  "petDetails": {
+    "dogTitle": "Erzählen Sie uns von Ihrem Hund",
+    "catTitle": "Erzählen Sie uns von Ihrer Katze",
+    "description": "Bitte geben Sie einige Details zu Ihrem Haustier an.",
+    "petName": "Name des Haustiers",
+    "petNamePlaceholder": "Geben Sie den Namen Ihres Haustiers ein",
+    "breed": "Rasse",
+    "selectDogBreed": "Wählen Sie eine Hunderasse",
+    "selectCatBreed": "Wählen Sie eine Katzenrasse",
+    "age": "Alter (Jahre)",
+    "agePlaceholder": "Geben Sie das Alter Ihres Haustiers ein",
+    "back": "Zurück",
+    "getPrice": "Preis erhalten",
+    "validation": {
+      "enterPetName": "Bitte geben Sie den Namen Ihres Haustiers ein.",
+      "selectBreed": "Bitte wählen Sie eine Rasse aus.",
+      "validAge": "Bitte geben Sie ein gültiges Alter (1-25 Jahre) ein."
+    }
+  },
+  "priceCustomization": {
+    "title": "Passen Sie Ihren Plan an",
+    "description": "Wählen Sie eine Produktvariante und Zusatzversicherungen, um die Versicherung Ihres Haustiers anzupassen.",
+    "startingMonthly": "ab monatlich",
+    "customizeYourPlan": "Passen Sie Ihren Plan an",
+    "preexistingConditions": "Deckung für Vorerkrankungen",
+    "preexistingConditionsDescription": "Deckt Erkrankungen ab, die vor dem Versicherungsbeginn diagnostiziert wurden.",
+    "worldwideCoverage": "Weltweite Abdeckung",
+    "worldwideCoverageDescription": "Erweitert den Versicherungsschutz für Ihr Haustier auf internationale Reisen.",
+    "adjustDeductible": "Passen Sie Ihren jährlichen Selbstbehalt an",
+    "yearlyDeductible": "Jährlicher Selbstbehalt",
+    "recommended": "Empfohlen",
+    "deductibleInfo": "Ein höherer Selbstbehalt führt in der Regel zu einer niedrigeren monatlichen Prämie.",
+    "adjustCoPayCoverage": "Kostenübernahme anpassen",
+    "coPayCoverage": "Kostenübernahme",
+    "fullCoverage": "Volle Kostenübernahme (0% Selbstbeteiligung)",
+    "standardCoverage": "Standard Kostenübernahme (20% Selbstbeteiligung)",
+    "coPayCoverageInfo": "Ein niedrigerer Prozentsatz der Kostenübernahme (höherer Selbstbehalt) führt in der Regel zu einer niedrigeren monatlichen Prämie.",
+    "currentEstimatedMonthlyPremium": "Aktuelle geschätzte monatliche Prämie",
+    "back": "Zurück",
+    "continue": "Weiter",
+    "validation": {
+      "selectProductVariant": "Bitte wählen Sie eine Produktvariante aus."
+    },
+    "successToast": "Plan '{{productName}}' erfolgreich angepasst!",
+    "exampleCalculation": {
+      "title": "Beispielrechnung",
+      "description": "Unsere Daten zeigen, dass die durchschnittlichen Kosten für einen Abszess CHF {{vetCost}} betragen.",
+      "scenario": "Wenn {{petName}} von einem anderen Tier gebissen wird und sich ein Abszess bildet, zahlt die Versicherung:",
+      "vetVisitCost": "Tierarztbesuch Kosten",
+      "deductible": "Selbstbehalt (jährlich zu zahlen)",
+      "coPay": "Ihr Selbstbehalt ({{coPayPercentage}}%)",
+      "insurancePays": "Versicherung zahlt"
+    }
+  },
+  "contactDetails": {
+    "title": "Ihre Kontaktdaten",
+    "description": "Bitte geben Sie Ihre Kontaktdaten an, um Ihr Angebot abzuschließen.",
+    "fullName": "Vollständiger Name",
+    "fullNamePlaceholder": "Geben Sie Ihren vollständigen Namen ein",
+    "emailAddress": "E-Mail-Adresse",
+    "emailAddressPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+    "phoneNumber": "Telefonnummer (Optional)",
+    "phoneNumberPlaceholder": "Geben Sie Ihre Telefonnummer ein",
+    "back": "Zurück",
+    "confirmPlan": "Plan bestätigen",
+    "validation": {
+      "enterName": "Bitte geben Sie Ihren vollständigen Namen ein.",
+      "validEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "validPhone": "Bitte geben Sie eine gültige Telefonnummer ein oder lassen Sie das Feld leer."
+    },
+    "successToast": "Kontaktdaten erfolgreich gespeichert!"
+  },
+  "confirmation": {
+    "title": "Angebot bestätigt!",
+    "description": "Vielen Dank, dass Sie sich für uns entschieden haben! Hier ist eine Zusammenfassung des Versicherungsplans Ihres Haustiers.",
+    "planSummary": "Sie haben den Plan <strong>{{productName}}</strong> für Ihre {{petType}} namens <strong>{{petName}}</strong> ({{breed}}, {{age}} Jahre alt) ausgewählt.",
+    "monthlyPremium": "Ihre monatliche Prämie beträgt:",
+    "yourDetails": "Ihre Details",
+    "name": "Name:",
+    "email": "E-Mail:",
+    "phone": "Telefon:",
+    "coverageDetails": "Details zur Abdeckung",
+    "planType": "Plantyp:",
+    "preexistingConditions": "Deckung für Vorerkrankungen:",
+    "confirmationEmailSent": "Eine Bestätigungs-E-Mail mit allen Details wurde an {{email}} gesendet.",
+    "startNewQuote": "Neues Angebot starten"
+  }
+}

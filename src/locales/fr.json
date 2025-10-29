@@ -1,0 +1,112 @@
+{
+  "common": {
+    "yes": "Oui",
+    "no": "Non",
+    "priceCalculatedSuccess": "Prix de base calculé avec succès !",
+    "errorCalculatingPrice": "Échec du calcul du prix de base. Veuillez réessayer.",
+    "worldwideCoverage": "Couverture Mondiale",
+    "yearlyDeductible": "Franchise Annuelle",
+    "coPayCoverage": "Prise en charge des frais",
+    "yourCat": "votre chat",
+    "yourDog": "votre chien"
+  },
+  "notFound": {
+    "title": "404 - Page non trouvée",
+    "oops": "Oups ! La page que vous recherchez n'existe pas.",
+    "returnHome": "Retour à l'accueil"
+  },
+  "petSelection": {
+    "title": "Choisissez votre animal",
+    "description": "Sélectionnez si vous recherchez une assurance pour un chien ou un chat.",
+    "dog": "Chien",
+    "cat": "Chat",
+    "next": "Suivant"
+  },
+  "petDetails": {
+    "dogTitle": "Parlez-nous de votre chien",
+    "catTitle": "Parlez-nous de votre chat",
+    "description": "Veuillez fournir quelques détails sur votre animal.",
+    "petName": "Nom de l'animal",
+    "petNamePlaceholder": "Entrez le nom de votre animal",
+    "breed": "Race",
+    "selectDogBreed": "Sélectionnez une race de chien",
+    "selectCatBreed": "Sélectionnez une race de chat",
+    "age": "Âge (Ans)",
+    "agePlaceholder": "Entrez l'âge de votre animal",
+    "back": "Retour",
+    "getPrice": "Obtenir le prix",
+    "validation": {
+      "enterPetName": "Veuillez entrer le nom de votre animal.",
+      "selectBreed": "Veuillez sélectionner une race.",
+      "validAge": "Veuillez entrer un âge valide (1-25 ans)."
+    }
+  },
+  "priceCustomization": {
+    "title": "Personnalisez votre plan",
+    "description": "Sélectionnez une variante de produit et des couvertures complémentaires pour adapter l'assurance de votre animal.",
+    "startingMonthly": "à partir de par mois",
+    "customizeYourPlan": "Personnalisez votre plan",
+    "preexistingConditions": "Couverture des conditions préexistantes",
+    "preexistingConditionsDescription": "Couvre les conditions diagnostiquées avant la date de début de la police.",
+    "worldwideCoverage": "Couverture mondiale",
+    "worldwideCoverageDescription": "Étend la couverture de votre animal lors de voyages internationaux.",
+    "adjustDeductible": "Ajustez votre franchise annuelle",
+    "yearlyDeductible": "Franchise annuelle",
+    "recommended": "Recommandé",
+    "deductibleInfo": "Une franchise plus élevée entraîne généralement une prime mensuelle plus basse.",
+    "adjustCoPayCoverage": "Ajuster la prise en charge des frais",
+    "coPayCoverage": "Prise en charge des frais (Kostenübernahme)",
+    "fullCoverage": "Prise en charge complète (0% de copaiement)",
+    "standardCoverage": "Prise en charge standard (20% de copaiement)",
+    "coPayCoverageInfo": "Un pourcentage de prise en charge des frais plus faible (copaiement plus élevé) entraîne généralement une prime mensuelle plus basse.",
+    "currentEstimatedMonthlyPremium": "Prime mensuelle estimée actuelle",
+    "back": "Retour",
+    "continue": "Continuer",
+    "validation": {
+      "selectProductVariant": "Veuillez sélectionner une variante de produit."
+    },
+    "successToast": "Plan '{{productName}}' personnalisé avec succès !",
+    "exampleCalculation": {
+      "title": "Exemple de calcul",
+      "description": "Nos données montrent que le coût moyen d'un abcès est de CHF {{vetCost}}.",
+      "scenario": "Si {{petName}} est mordu par un autre animal et qu'un abcès se forme, l'assurance paie :",
+      "vetVisitCost": "Coût de la visite vétérinaire",
+      "deductible": "Franchise (à payer annuellement)",
+      "coPay": "Votre copaiement ({{coPayPercentage}}%)",
+      "insurancePays": "L'assurance paie"
+    }
+  },
+  "contactDetails": {
+    "title": "Vos coordonnées",
+    "description": "Veuillez fournir vos coordonnées pour finaliser votre devis.",
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Entrez votre nom complet",
+    "emailAddress": "Adresse e-mail",
+    "emailAddressPlaceholder": "Entrez votre adresse e-mail",
+    "phoneNumber": "Numéro de téléphone (Facultatif)",
+    "phoneNumberPlaceholder": "Entrez votre numéro de téléphone",
+    "back": "Retour",
+    "confirmPlan": "Confirmer le plan",
+    "validation": {
+      "enterName": "Veuillez entrer votre nom complet.",
+      "validEmail": "Veuillez entrer une adresse e-mail valide.",
+      "validPhone": "Veuillez entrer un numéro de téléphone valide ou le laisser vide."
+    },
+    "successToast": "Coordonnées enregistrées avec succès !"
+  },
+  "confirmation": {
+    "title": "Devis confirmé !",
+    "description": "Merci de nous avoir choisis ! Voici un résumé du plan d'assurance de votre animal.",
+    "planSummary": "Vous avez sélectionné le plan <strong>{{productName}}</strong> pour votre {{petType}} nommé <strong>{{petName}}</strong> ({{breed}}, {{age}} ans).",
+    "monthlyPremium": "Votre prime mensuelle sera de :",
+    "yourDetails": "Vos coordonnées",
+    "name": "Nom :",
+    "email": "E-mail :",
+    "phone": "Téléphone :",
+    "coverageDetails": "Détails de la couverture",
+    "planType": "Type de plan :",
+    "preexistingConditions": "Couverture des conditions préexistantes :",
+    "confirmationEmailSent": "Un e-mail de confirmation avec tous les détails a été envoyé à {{email}}.",
+    "startNewQuote": "Commencer un nouveau devis"
+  }
+}
