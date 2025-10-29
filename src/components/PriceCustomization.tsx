@@ -116,6 +116,16 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
     showSuccess(t("priceCustomization.successToast", { productName: selectedProduct.name }));
   };
 
+  // Dynamic example calculation for deductible impact
+  const exampleVetCost = 490; // CHF
+  const coPayPercentage = 0.20; // 20%
+
+  const deductibleApplied = Math.min(yearlyDeductible, exampleVetCost);
+  const remainingAfterDeductible = Math.max(0, exampleVetCost - deductibleApplied);
+  const yourCoPay = parseFloat((remainingAfterDeductible * coPayPercentage).toFixed(2));
+  const insurancePays = parseFloat((remainingAfterDeductible - yourCoPay).toFixed(2));
+  const yourPetName = t(`common.your${petType === "cat" ? "Cat" : "Dog"}`); // e.g., "your cat" or "your dog"
+
   return (
     <>
       <Card className="w-full max-w-4xl mx-auto mb-24"> {/* Added mb-24 for banner clearance */}
@@ -220,6 +230,38 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
               <p className="text-sm text-muted-foreground mt-4">
                 {t("priceCustomization.deductibleInfo")}
               </p>
+            </Card>
+          </div>
+
+          {/* Example Calculation */}
+          <div className="space-y-6 border-t pt-6">
+            <h3 className="text-2xl font-bold text-center">{t("priceCustomization.exampleCalculation.title")}</h3>
+            <Card className="p-6 space-y-4">
+              <p className="text-sm text-muted-foreground">
+                {t("priceCustomization.exampleCalculation.description", { vetCost: exampleVetCost })}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {t("priceCustomization.exampleCalculation.scenario", { petName: yourPetName, vetCost: exampleVetCost })}
+              </p>
+
+              <div className="space-y-2 text-lg">
+                <div className="flex justify-between">
+                  <span>{t("priceCustomization.exampleCalculation.vetVisitCost")}</span>
+                  <span className="font-semibold">CHF {exampleVetCost.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-red-600">
+                  <span>{t("priceCustomization.exampleCalculation.deductible", { yearlyDeductible: yearlyDeductible })}</span>
+                  <span className="font-semibold">- CHF {deductibleApplied.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-red-600">
+                  <span>{t("priceCustomization.exampleCalculation.coPay", { coPayPercentage: coPayPercentage * 100 })}</span>
+                  <span className="font-semibold">- CHF {yourCoPay.toFixed(2)}</span>
+                </div>
+                <div className="border-t pt-2 flex justify-between font-bold text-primary text-xl">
+                  <span>{t("priceCustomization.exampleCalculation.insurancePays")}</span>
+                  <span>CHF {insurancePays.toFixed(2)}</span>
+                </div>
+              </div>
             </Card>
           </div>
         </CardContent>
