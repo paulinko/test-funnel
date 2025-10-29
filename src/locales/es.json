@@ -1,92 +1,106 @@
 {
+  "common": {
+    "yes": "Sí",
+    "no": "No",
+    "priceCalculatedSuccess": "¡Precio base calculado con éxito!",
+    "errorCalculatingPrice": "Error al calcular el precio base. Por favor, inténtalo de nuevo.",
+    "worldwideCoverage": "Cobertura Mundial",
+    "yearlyDeductible": "Franquicia Anual",
+    "yourCat": "tu gato",
+    "yourDog": "tu perro"
+  },
+  "notFound": {
+    "title": "404 - Página no encontrada",
+    "oops": "¡Ups! La página que buscas no existe.",
+    "returnHome": "Volver al inicio"
+  },
   "petSelection": {
-    "title": "Embudo de Seguro para Mascotas",
-    "description": "¡Empecemos! ¿Qué tipo de mascota tienes?",
+    "title": "Elige a tu Mascota",
+    "description": "Selecciona si buscas seguro para un perro o un gato.",
     "dog": "Perro",
     "cat": "Gato",
     "next": "Siguiente"
   },
   "petDetails": {
-    "dogTitle": "Cuéntanos Sobre Tu Perro",
-    "catTitle": "Cuéntanos Sobre Tu Gato",
-    "description": "Necesitamos algunos detalles más para obtener tu cotización.",
+    "dogTitle": "Cuéntanos sobre tu Perro",
+    "catTitle": "Cuéntanos sobre tu Gato",
+    "description": "Por favor, proporciona algunos detalles sobre tu mascota.",
+    "petName": "Nombre de la Mascota",
+    "petNamePlaceholder": "Introduce el nombre de tu mascota",
     "breed": "Raza",
-    "selectDogBreed": "Selecciona la raza de tu perro",
-    "selectCatBreed": "Selecciona la raza de tu gato",
-    "age": "Edad (en años)",
-    "agePlaceholder": "ej., 3",
+    "selectDogBreed": "Selecciona una raza de perro",
+    "selectCatBreed": "Selecciona una raza de gato",
+    "age": "Edad (Años)",
+    "agePlaceholder": "Introduce la edad de tu mascota",
     "back": "Atrás",
     "getPrice": "Obtener Precio",
     "validation": {
+      "enterPetName": "Por favor, introduce el nombre de tu mascota.",
       "selectBreed": "Por favor, selecciona una raza.",
       "validAge": "Por favor, introduce una edad válida (1-25 años)."
     }
   },
   "priceCustomization": {
-    "title": "Personaliza Tu Plan",
-    "description": "Selecciona un plan base y añade coberturas opcionales para adaptar el seguro de tu mascota.",
+    "title": "Personaliza tu Plan",
+    "description": "Selecciona una variante de producto y coberturas adicionales para adaptar el seguro de tu mascota.",
     "startingMonthly": "a partir de mensual",
-    "currentEstimatedMonthlyPremium": "Prima Mensual Estimada Actual",
-    "customizeYourPlan": "Coberturas Adicionales",
+    "customizeYourPlan": "Personaliza tu Plan",
     "preexistingConditions": "Cobertura de Condiciones Preexistentes",
-    "preexistingConditionsDescription": "Cubre condiciones que tu mascota tenía antes de que comenzara la póliza.",
+    "preexistingConditionsDescription": "Cubre condiciones diagnosticadas antes de la fecha de inicio de la póliza.",
     "worldwideCoverage": "Cobertura Mundial",
-    "worldwideCoverageDescription": "Extiende la cobertura de tu mascota a nivel global para viajes.",
-    "adjustDeductible": "Ajustar Deducible Anual",
-    "yearlyDeductible": "Deducible Anual",
-    "deductibleInfo": "Un deducible más alto generalmente resulta en una prima mensual más baja.",
+    "worldwideCoverageDescription": "Extiende la cobertura para tu mascota mientras viaja internacionalmente.",
+    "adjustDeductible": "Ajusta tu Franquicia Anual",
+    "yearlyDeductible": "Franquicia Anual",
+    "recommended": "Recomendado",
+    "deductibleInfo": "Una franquicia más alta generalmente resulta en una prima mensual más baja.",
+    "currentEstimatedMonthlyPremium": "Prima Mensual Estimada Actual",
     "back": "Atrás",
     "continue": "Continuar",
     "validation": {
       "selectProductVariant": "Por favor, selecciona una variante de producto."
     },
-    "successToast": "¡Has personalizado el plan {{productName}}!"
+    "successToast": "¡Plan '{{productName}}' personalizado con éxito!",
+    "exampleCalculation": {
+      "title": "Cálculo de Ejemplo",
+      "description": "Nuestros datos muestran que el costo promedio de un absceso es de CHF {{vetCost}}.",
+      "scenario": "Si {{petName}} es mordido por otro animal y se forma un absceso, el seguro paga:",
+      "vetVisitCost": "Costo de la visita al veterinario",
+      "deductible": "Franquicia (a pagar anualmente)",
+      "coPay": "Tu copago ({{coPayPercentage}}%)",
+      "insurancePays": "El seguro paga"
+    }
   },
   "contactDetails": {
     "title": "Tus Datos de Contacto",
-    "description": "Por favor, proporciona tu información de contacto para finalizar tu plan.",
+    "description": "Por favor, proporciona tu información de contacto para finalizar tu presupuesto.",
     "fullName": "Nombre Completo",
-    "fullNamePlaceholder": "Juan Pérez",
-    "emailAddress": "Correo Electrónico",
-    "emailAddressPlaceholder": "juan.perez@ejemplo.com",
+    "fullNamePlaceholder": "Introduce tu nombre completo",
+    "emailAddress": "Dirección de Correo Electrónico",
+    "emailAddressPlaceholder": "Introduce tu dirección de correo electrónico",
     "phoneNumber": "Número de Teléfono (Opcional)",
-    "phoneNumberPlaceholder": "+34612345678",
+    "phoneNumberPlaceholder": "Introduce tu número de teléfono",
     "back": "Atrás",
     "confirmPlan": "Confirmar Plan",
     "validation": {
-      "enterName": "Por favor, introduce tu nombre.",
+      "enterName": "Por favor, introduce tu nombre completo.",
       "validEmail": "Por favor, introduce una dirección de correo electrónico válida.",
-      "validPhone": "Por favor, introduce un número de teléfono válido (10-15 dígitos, opcional +)."
+      "validPhone": "Por favor, introduce un número de teléfono válido o déjalo en blanco."
     },
-    "successToast": "¡Datos de contacto guardados!"
+    "successToast": "¡Datos de contacto guardados con éxito!"
   },
   "confirmation": {
-    "title": "¡Felicidades!",
-    "description": "Has configurado con éxito tu plan de seguro para mascotas.",
-    "planSummary": "Has seleccionado el plan <strong>{{productName}}</strong> para tu {{petType}} ({{breed}}, {{age}} años).",
-    "monthlyPremium": "Tu prima mensual es:",
-    "yourDetails": "Tus Datos:",
+    "title": "¡Presupuesto Confirmado!",
+    "description": "¡Gracias por elegirnos! Aquí tienes un resumen del plan de seguro de tu mascota.",
+    "planSummary": "Has seleccionado el plan <strong>{{productName}}</strong> para tu {{petType}} llamado <strong>{{petName}}</strong> ({{breed}}, {{age}} años).",
+    "monthlyPremium": "Tu prima mensual será:",
+    "yourDetails": "Tus Datos",
     "name": "Nombre:",
     "email": "Correo Electrónico:",
     "phone": "Teléfono:",
-    "coverageDetails": "Detalles de la Cobertura:",
+    "coverageDetails": "Detalles de la Cobertura",
     "planType": "Tipo de Plan:",
-    "preexistingConditions": "¿Condiciones Preexistentes?",
-    "worldwideCoverage": "¿Cobertura Mundial?",
-    "yearlyDeductible": "Deducible Anual:",
-    "confirmationEmailSent": "Se ha enviado un correo electrónico de confirmación con los detalles de tu póliza a {{email}}.",
-    "startNewQuote": "Iniciar Nueva Cotización"
-  },
-  "madeWithDyad": "Hecho con Dyad",
-  "notFound": {
-    "title": "404",
-    "oops": "¡Ups! Página no encontrada",
-    "returnHome": "Volver al Inicio"
-  },
-  "common": {
-    "yes": "Sí",
-    "no": "No",
-    "priceCalculatedSuccess": "¡Precio base calculado con éxito!",
-    "errorCalculatingPrice": "Error al calcular el precio base. Por favor, inténtalo de nuevo."
+    "preexistingConditions": "Cobertura de Condiciones Preexistentes:",
+    "confirmationEmailSent": "Se ha enviado un correo electrónico de confirmación con todos los detalles a {{email}}.",
+    "startNewQuote": "Iniciar Nuevo Presupuesto"
   }
 }

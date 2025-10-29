@@ -1,7 +1,22 @@
 {
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "priceCalculatedSuccess": "Base price calculated successfully!",
+    "errorCalculatingPrice": "Failed to calculate base price. Please try again.",
+    "worldwideCoverage": "Worldwide Coverage",
+    "yearlyDeductible": "Yearly Deductible",
+    "yourCat": "your cat",
+    "yourDog": "your dog"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "oops": "Oops! The page you're looking for doesn't exist.",
+    "returnHome": "Return to Home"
+  },
   "petSelection": {
-    "title": "Pet Insurance Funnel",
-    "description": "Let's get started! What kind of pet do you have?",
+    "title": "Choose Your Pet",
+    "description": "Select whether you're looking for insurance for a dog or a cat.",
     "dog": "Dog",
     "cat": "Cat",
     "next": "Next"
@@ -9,84 +24,83 @@
   "petDetails": {
     "dogTitle": "Tell Us About Your Dog",
     "catTitle": "Tell Us About Your Cat",
-    "description": "We need a few more details to get your quote.",
+    "description": "Please provide some details about your pet.",
+    "petName": "Pet Name",
+    "petNamePlaceholder": "Enter your pet's name",
     "breed": "Breed",
-    "selectDogBreed": "Select your dog's breed",
-    "selectCatBreed": "Select your cat's breed",
-    "age": "Age (in years)",
-    "agePlaceholder": "e.g., 3",
+    "selectDogBreed": "Select a dog breed",
+    "selectCatBreed": "Select a cat breed",
+    "age": "Age (Years)",
+    "agePlaceholder": "Enter your pet's age",
     "back": "Back",
     "getPrice": "Get Price",
     "validation": {
+      "enterPetName": "Please enter your pet's name.",
       "selectBreed": "Please select a breed.",
       "validAge": "Please enter a valid age (1-25 years)."
     }
   },
   "priceCustomization": {
     "title": "Customize Your Plan",
-    "description": "Select a base plan and add optional coverages to tailor your pet insurance.",
+    "description": "Select a product variant and add-on coverages to tailor your pet's insurance.",
     "startingMonthly": "starting monthly",
-    "currentEstimatedMonthlyPremium": "Current Estimated Monthly Premium",
-    "customizeYourPlan": "Add-on Coverages",
-    "preexistingConditions": "Preexisting Condition Coverage",
-    "preexistingConditionsDescription": "Covers conditions your pet had before the policy started.",
+    "customizeYourPlan": "Customize Your Plan",
+    "preexistingConditions": "Pre-existing Conditions Coverage",
+    "preexistingConditionsDescription": "Covers conditions diagnosed before policy start date.",
     "worldwideCoverage": "Worldwide Coverage",
-    "worldwideCoverageDescription": "Extends your pet's coverage globally for travel.",
-    "adjustDeductible": "Adjust Yearly Deductible",
+    "worldwideCoverageDescription": "Extends coverage for your pet while traveling internationally.",
+    "adjustDeductible": "Adjust Your Yearly Deductible",
     "yearlyDeductible": "Yearly Deductible",
+    "recommended": "Recommended",
     "deductibleInfo": "A higher deductible typically results in a lower monthly premium.",
+    "currentEstimatedMonthlyPremium": "Current Estimated Monthly Premium",
     "back": "Back",
     "continue": "Continue",
     "validation": {
       "selectProductVariant": "Please select a product variant."
     },
-    "successToast": "You customized the {{productName}} plan!"
+    "successToast": "Plan '{{productName}}' customized successfully!",
+    "exampleCalculation": {
+      "title": "Example Calculation",
+      "description": "Our data shows that the average cost for an abscess is CHF {{vetCost}}.",
+      "scenario": "If {{petName}} gets bitten by another animal and an abscess forms, the insurance pays:",
+      "vetVisitCost": "Vet visit cost",
+      "deductible": "Deductible (yearly to pay)",
+      "coPay": "Your Co-pay ({{coPayPercentage}}%)",
+      "insurancePays": "Insurance pays"
+    }
   },
   "contactDetails": {
     "title": "Your Contact Details",
-    "description": "Please provide your contact information to finalize your plan.",
+    "description": "Please provide your contact information to finalize your quote.",
     "fullName": "Full Name",
-    "fullNamePlaceholder": "John Doe",
+    "fullNamePlaceholder": "Enter your full name",
     "emailAddress": "Email Address",
-    "emailAddressPlaceholder": "john.doe@example.com",
+    "emailAddressPlaceholder": "Enter your email address",
     "phoneNumber": "Phone Number (Optional)",
-    "phoneNumberPlaceholder": "+15551234567",
+    "phoneNumberPlaceholder": "Enter your phone number",
     "back": "Back",
     "confirmPlan": "Confirm Plan",
     "validation": {
-      "enterName": "Please enter your name.",
+      "enterName": "Please enter your full name.",
       "validEmail": "Please enter a valid email address.",
-      "validPhone": "Please enter a valid phone number (10-15 digits, optional +)."
+      "validPhone": "Please enter a valid phone number or leave it empty."
     },
-    "successToast": "Contact details saved!"
+    "successToast": "Contact details saved successfully!"
   },
   "confirmation": {
-    "title": "Congratulations!",
-    "description": "You've successfully configured your pet insurance plan.",
-    "planSummary": "You selected the <strong>{{productName}}</strong> plan for your {{petType}} ({{breed}}, {{age}} years old).",
-    "monthlyPremium": "Your monthly premium is:",
-    "yourDetails": "Your Details:",
+    "title": "Quote Confirmed!",
+    "description": "Thank you for choosing us! Here's a summary of your pet's insurance plan.",
+    "planSummary": "You have selected the <strong>{{productName}}</strong> plan for your {{petType}} named <strong>{{petName}}</strong> ({{breed}}, {{age}} years old).",
+    "monthlyPremium": "Your monthly premium will be:",
+    "yourDetails": "Your Details",
     "name": "Name:",
     "email": "Email:",
     "phone": "Phone:",
-    "coverageDetails": "Coverage Details:",
+    "coverageDetails": "Coverage Details",
     "planType": "Plan Type:",
-    "preexistingConditions": "Preexisting Conditions:",
-    "worldwideCoverage": "Worldwide Coverage:",
-    "yearlyDeductible": "Yearly Deductible:",
-    "confirmationEmailSent": "A confirmation email with your policy details has been sent to {{email}}.",
-    "startNewQuote": "Start a New Quote"
-  },
-  "madeWithDyad": "Made with Dyad",
-  "notFound": {
-    "title": "404",
-    "oops": "Oops! Page not found",
-    "returnHome": "Return to Home"
-  },
-  "common": {
-    "yes": "Yes",
-    "no": "No",
-    "priceCalculatedSuccess": "Base price calculated successfully!",
-    "errorCalculatingPrice": "Failed to calculate base price. Please try again."
+    "preexistingConditions": "Pre-existing Conditions Coverage:",
+    "confirmationEmailSent": "A confirmation email with all the details has been sent to {{email}}.",
+    "startNewQuote": "Start New Quote"
   }
 }
