@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
 import { showError, showSuccess } from "@/utils/toast";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
@@ -56,6 +55,8 @@ const productVariants: ProductVariant[] = [
   },
 ];
 
+const deductibleOptions = [0, 150, 300, 500, 1000]; // New deductible options
+
 const PriceCustomization: React.FC<PriceCustomizationProps> = ({
   petType,
   breed,
@@ -66,7 +67,7 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
   initialSelectedProduct = productVariants[0], // Default to basic if not provided
   initialPreexistingCoverage = false,
   initialWorldwideCoverage = false,
-  initialYearlyDeductible = 250,
+  initialYearlyDeductible = 300, // Default to 300 for recommended option
 }) => {
   const { t } = useTranslation();
   const [selectedProductId, setSelectedProductId] = React.useState<string>(initialSelectedProduct?.id || productVariants[0].id);
@@ -89,9 +90,15 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
     }
 
     // Deductible impact (higher deductible, lower premium)
-    // This is a simplified example; real insurance models are more complex.
-    const deductibleFactor = (500 - yearlyDeductible) / 500; // Max deductible 500, min 100
-    currentPrice *= (1 + deductibleFactor * 0.1); // Adjust premium by up to 10% based on deductible
+    // Adjust premium based on selected deductible
+    const deductibleAdjustments: { [key: number]: number } = {
+      0: 30,   // Highest premium for 0 deductible
+      150: 20,
+      300: 10, // Base adjustment for recommended
+      500: -10,
+      1000: -30 // Lowest premium for 1000 deductible
+    };
+    currentPrice += deductibleAdjustments[yearlyDeductible] || 0; // Add adjustment, default to 0 if not found
 
     return Math.max(5, currentPrice); // Ensure price is not negative or too low
   }, [basePrice, selectedProductId, preexistingCoverage, worldwideCoverage, yearlyDeductible]);
@@ -186,31 +193,35 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
           </div>
         </div>
 
-        {/* Yearly Deductible */}
+        {/* Yearly Deductible - Updated to selectable badges */}
         <div className="space-y-6 border-t pt-6">
           <h3 className="text-2xl font-bold text-center">{t("priceCustomization.adjustDeductible")}</h3>
           <Card className="p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="deductible-slider" className="text-lg font-medium">
-                {t("priceCustomization.yearlyDeductible")}
-              </Label>
-              <span className="text-2xl font-bold text-primary">${yearlyDeductible.toFixed(0)}</span>
+            <Label className="text-lg font-medium block mb-4">
+              {t("priceCustomization.yearlyDeductible")}
+            </Label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              {deductibleOptions.map((deductible) => (
+                <div key={deductible} className="flex flex-col items-center">
+                  <Button
+                    variant={yearlyDeductible === deductible ? "default" : "outline"}
+                    onClick={() => setYearlyDeductible(deductible)}
+                    className={cn(
+                      "w-full py-4 text-lg font-semibold",
+                      yearlyDeductible === deductible ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent"
+                    )}
+                  >
+                    CHF {deductible}
+                  </Button>
+                  {deductible === 300 && (
+                    <span className="text-xs text-muted-foreground mt-1">
+                      {t("priceCustomization.recommended")}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
-            <Slider
-              id="deductible-slider"
-              min={100}
-              max={500}
-              step={50}
-              value={[yearlyDeductible]}
-              onValueChange={(value) => setYearlyDeductible(value[0])}
-              className="w-full"
-            />
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>$100</span>
-              <span>$250</span>
-              <span>$500</span>
-            </div>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-sm text-muted-foreground mt-4">
               {t("priceCustomization.deductibleInfo")}
             </p>
           </Card>
