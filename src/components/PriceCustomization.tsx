@@ -163,7 +163,7 @@ const PriceCustomization: React.FC<PriceCustomizationProps> = ({
                     <CardDescription>{variant.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <p className="text-4xl font-extrabold text-primary">${(basePrice * variant.priceFactor).toFixed(2)}</p>
+                    <p className="text-4xl font-extrabold text-primary">CHF {(basePrice * variant.priceFactor).toFixed(2)}</p>
                     <p className="text-sm text-muted-foreground">{t("priceCustomization.startingMonthly")}</p>
                   </CardContent>
                   <Label htmlFor={variant.id} className="absolute inset-0 cursor-pointer"></Label>

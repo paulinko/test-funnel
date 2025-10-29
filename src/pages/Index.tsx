@@ -204,7 +204,7 @@ const Index = () => {
                 age: age
               })
             }} />
-            <p className="text-2xl font-extrabold">{t("confirmation.monthlyPremium")} <span className="text-primary">${finalPrice.toFixed(2)}</span></p>
+            <p className="text-2xl font-extrabold">{t("confirmation.monthlyPremium")} <span className="text-primary">CHF {finalPrice.toFixed(2)}</span></p>
             <div className="border-t pt-4 space-y-2 text-left">
               <h3 className="text-xl font-semibold">{t("confirmation.yourDetails")}</h3>
               <p><strong>{t("confirmation.name")}</strong> {contactName}</p>
@@ -214,7 +214,7 @@ const Index = () => {
               <p><strong>{t("confirmation.planType")}</strong> {selectedProduct.name}</p>
               <p><strong>{t("confirmation.preexistingConditions")}</strong> {preexistingCoverage ? t("common.yes") : t("common.no")}</p>
               <p><strong>{t("common.worldwideCoverage")}</strong> {worldwideCoverage ? t("common.yes") : t("common.no")}</p>
-              <p><strong>{t("common.yearlyDeductible")}</strong> ${yearlyDeductible.toFixed(2)}</p>
+              <p><strong>{t("common.yearlyDeductible")}</strong> CHF {yearlyDeductible.toFixed(2)}</p>
               <p><strong>{t("common.coPayCoverage")}</strong> {coPayCoveragePercentage}%</p>
             </div>
             <p className="text-sm text-muted-foreground mt-2">
