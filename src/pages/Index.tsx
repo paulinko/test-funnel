@@ -2,10 +2,13 @@ import React from "react";
 import PetSelection from "@/components/PetSelection";
 import PetDetails from "@/components/PetDetails";
 import PricingDisplay from "@/components/PricingDisplay";
-import ProductSelection from "@/components/ProductSelection"; // New import
+import ProductSelection from "@/components/ProductSelection";
+import ContactDetailsForm from "@/components/ContactDetailsForm"; // New import
 import { MadeWithDyad } from "@/components/made-with-dyad";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "productSelection" | "confirmation"; // Added new steps
+type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "productSelection" | "contactDetails" | "confirmation"; // Added new step
 
 interface ProductVariant {
   id: string;
@@ -19,9 +22,12 @@ const Index = () => {
   const [petType, setPetType] = React.useState<"cat" | "dog" | null>(null);
   const [breed, setBreed] = React.useState<string | null>(null);
   const [age, setAge] = React.useState<number | null>(null);
-  const [basePrice, setBasePrice] = React.useState<number | null>(null); // New state for base price
-  const [selectedProduct, setSelectedProduct] = React.useState<ProductVariant | null>(null); // New state for selected product
-  const [finalPrice, setFinalPrice] = React.useState<number | null>(null); // New state for final price
+  const [basePrice, setBasePrice] = React.useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = React.useState<ProductVariant | null>(null);
+  const [finalPrice, setFinalPrice] = React.useState<number | null>(null);
+  const [contactName, setContactName] = React.useState<string | null>(null); // New state for contact details
+  const [contactEmail, setContactEmail] = React.useState<string | null>(null); // New state for contact details
+  const [contactPhone, setContactPhone] = React.useState<string | null>(null); // New state for contact details
 
   const handlePetSelection = (selectedPetType: "cat" | "dog") => {
     setPetType(selectedPetType);
@@ -42,7 +48,14 @@ const Index = () => {
   const handleProductSelection = (product: ProductVariant, price: number) => {
     setSelectedProduct(product);
     setFinalPrice(price);
-    setCurrentStep("confirmation"); // Transition to a confirmation step (or just log for now)
+    setCurrentStep("contactDetails"); // Transition to contact details
+  };
+
+  const handleContactDetailsSubmit = (name: string, email: string, phone: string) => {
+    setContactName(name);
+    setContactEmail(email);
+    setContactPhone(phone);
+    setCurrentStep("confirmation"); // Transition to final confirmation
   };
 
   const handleBackToDetails = () => {
@@ -56,6 +69,13 @@ const Index = () => {
     setCurrentStep("pricingDisplay");
   };
 
+  const handleBackToProductSelection = () => {
+    setContactName(null);
+    setContactEmail(null);
+    setContactPhone(null);
+    setCurrentStep("productSelection");
+  };
+
   const handleResetFunnel = () => {
     setPetType(null);
     setBreed(null);
@@ -63,6 +83,9 @@ const Index = () => {
     setBasePrice(null);
     setSelectedProduct(null);
     setFinalPrice(null);
+    setContactName(null);
+    setContactEmail(null);
+    setContactPhone(null);
     setCurrentStep("petSelection");
   };
 
@@ -76,7 +99,7 @@ const Index = () => {
         <PetDetails
           petType={petType}
           onDetailsSubmit={handlePetDetailsSubmit}
-          onBack={handleResetFunnel} // Back from details goes to pet selection
+          onBack={handleResetFunnel}
         />
       )}
 
@@ -86,7 +109,7 @@ const Index = () => {
           breed={breed}
           age={age}
           onContinue={handleContinueToProductSelection}
-          onBackToSelection={handleBackToDetails} // Back from pricing goes to pet details
+          onBackToSelection={handleBackToDetails}
         />
       )}
 
@@ -97,11 +120,21 @@ const Index = () => {
           age={age}
           basePrice={basePrice}
           onSelectProduct={handleProductSelection}
-          onBack={handleBackToPricing} // Back from product selection goes to pricing display
+          onBack={handleBackToPricing}
         />
       )}
 
-      {currentStep === "confirmation" && selectedProduct && finalPrice !== null && (
+      {currentStep === "contactDetails" && selectedProduct && finalPrice !== null && (
+        <ContactDetailsForm
+          onDetailsSubmit={handleContactDetailsSubmit}
+          onBack={handleBackToProductSelection}
+          initialName={contactName || ""}
+          initialEmail={contactEmail || ""}
+          initialPhone={contactPhone || ""}
+        />
+      )}
+
+      {currentStep === "confirmation" && selectedProduct && finalPrice !== null && contactName && contactEmail && (
         <Card className="w-full max-w-md mx-auto text-center">
           <CardHeader>
             <CardTitle className="text-3xl font-bold text-green-600">Congratulations!</CardTitle>
@@ -112,8 +145,14 @@ const Index = () => {
               You selected the <strong className="text-primary">{selectedProduct.name}</strong> plan for your {petType} ({breed}, {age} years old).
             </p>
             <p className="text-2xl font-extrabold">Your monthly premium is: <span className="text-primary">${finalPrice.toFixed(2)}</span></p>
-            <p className="text-sm text-muted-foreground">
-              A confirmation email with your policy details has been sent.
+            <div className="border-t pt-4 space-y-2 text-left">
+              <h3 className="text-xl font-semibold">Your Details:</h3>
+              <p><strong>Name:</strong> {contactName}</p>
+              <p><strong>Email:</strong> {contactEmail}</p>
+              {contactPhone && <p><strong>Phone:</strong> {contactPhone}</p>}
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              A confirmation email with your policy details has been sent to {contactEmail}.
             </p>
           </CardContent>
           <CardFooter>
