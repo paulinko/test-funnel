@@ -90,6 +90,22 @@ const Index = () => {
     setContactName(name);
     setContactEmail(email);
     setContactPhone(phone);
+
+    // Log the data that would be sent to the server
+    console.log("Data to be sent to server:", {
+      petType,
+      breed,
+      age,
+      selectedProduct,
+      finalPrice,
+      preexistingCoverage,
+      worldwideCoverage,
+      yearlyDeductible,
+      contactName: name,
+      contactEmail: email,
+      contactPhone: phone,
+    });
+
     setCurrentStep("confirmation");
   };
 
