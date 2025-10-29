@@ -8,10 +8,11 @@ interface PricingDisplayProps {
   petType: "cat" | "dog";
   breed: string;
   age: number;
-  onReset: () => void;
+  onContinue: (price: number) => void;
+  onBackToSelection: () => void;
 }
 
-const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, onReset }) => {
+const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, onContinue, onBackToSelection }) => {
   const [price, setPrice] = React.useState<number | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -91,9 +92,12 @@ const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, on
           </div>
         )}
       </CardContent>
-      <CardFooter>
-        <Button onClick={onReset} className="w-full">
+      <CardFooter className="flex justify-between gap-4">
+        <Button variant="outline" onClick={onBackToSelection} className="w-full">
           Start Over
+        </Button>
+        <Button onClick={() => price !== null && onContinue(price)} disabled={loading || price === null} className="w-full">
+          Continue
         </Button>
       </CardFooter>
     </Card>
