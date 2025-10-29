@@ -1,0 +1,99 @@
+{
+  "petSelection": {
+    "title": "Embudo de Seguro para Mascotas",
+    "description": "¡Empecemos! ¿Qué tipo de mascota tienes?",
+    "dog": "Perro",
+    "cat": "Gato",
+    "next": "Siguiente"
+  },
+  "petDetails": {
+    "dogTitle": "Cuéntanos Sobre Tu Perro",
+    "catTitle": "Cuéntanos Sobre Tu Gato",
+    "description": "Necesitamos algunos detalles más para obtener tu cotización.",
+    "breed": "Raza",
+    "selectDogBreed": "Selecciona la raza de tu perro",
+    "selectCatBreed": "Selecciona la raza de tu gato",
+    "age": "Edad (en años)",
+    "agePlaceholder": "ej., 3",
+    "back": "Atrás",
+    "getPrice": "Obtener Precio",
+    "validation": {
+      "selectBreed": "Por favor, selecciona una raza.",
+      "validAge": "Por favor, introduce una edad válida (1-25 años)."
+    }
+  },
+  "pricingDisplay": {
+    "title": "Tu Cotización de Seguro",
+    "description": "Aquí tienes la cotización personalizada para tu mascota.",
+    "calculating": "Calculando tu precio...",
+    "estimatedMonthlyPremium": "Prima Mensual Estimada",
+    "productConfiguration": "Configuración del Producto:",
+    "petType": "Tipo de Mascota:",
+    "breed": "Raza:",
+    "age": "Edad:",
+    "years": "años",
+    "mockPriceDisclaimer": "Este es un precio y configuración simulados. Se aplican los términos y condiciones reales.",
+    "startOver": "Empezar de Nuevo",
+    "continue": "Continuar",
+    "errorFetchingPrice": "Error al obtener el precio. Por favor, inténtalo de nuevo.",
+    "priceFetchedSuccess": "¡Precio obtenido con éxito!",
+    "errorToast": "Error al obtener el precio."
+  },
+  "productSelection": {
+    "title": "Elige Tu Plan",
+    "description": "Selecciona el plan de seguro que mejor se adapte a las necesidades de tu mascota.",
+    "select": "Seleccionar",
+    "planName": "Nombre del Plan",
+    "planDescription": "Descripción",
+    "monthlyPrice": "Precio Mensual",
+    "basicPlanName": "Plan Básico",
+    "basicPlanDescription": "Cubre accidentes y enfermedades. Cuidado esencial para tu mascota.",
+    "standardPlanName": "Plan Estándar",
+    "standardPlanDescription": "Incluye Plan Básico más exámenes de bienestar rutinarios y vacunas.",
+    "premiumPlanName": "Plan Premium",
+    "premiumPlanDescription": "Cobertura completa que incluye cuidado dental y terapia conductual.",
+    "back": "Atrás",
+    "selectProduct": "Seleccionar Producto",
+    "disclaimer": "Los precios son estimaciones basadas en los detalles de tu mascota: {{petType}}, {{breed}}, {{age}} años.",
+    "validation": {
+      "selectProductVariant": "Por favor, selecciona una variante de producto."
+    },
+    "successToast": "¡Has seleccionado el plan {{productName}}!"
+  },
+  "contactDetails": {
+    "title": "Tus Datos de Contacto",
+    "description": "Por favor, proporciona tu información de contacto para finalizar tu plan.",
+    "fullName": "Nombre Completo",
+    "fullNamePlaceholder": "Juan Pérez",
+    "emailAddress": "Correo Electrónico",
+    "emailAddressPlaceholder": "juan.perez@ejemplo.com",
+    "phoneNumber": "Número de Teléfono (Opcional)",
+    "phoneNumberPlaceholder": "+34612345678",
+    "back": "Atrás",
+    "confirmPlan": "Confirmar Plan",
+    "validation": {
+      "enterName": "Por favor, introduce tu nombre.",
+      "validEmail": "Por favor, introduce una dirección de correo electrónico válida.",
+      "validPhone": "Por favor, introduce un número de teléfono válido (10-15 dígitos, opcional +)."
+    },
+    "successToast": "¡Datos de contacto guardados!"
+  },
+  "confirmation": {
+    "title": "¡Felicidades!",
+    "description": "Has configurado con éxito tu plan de seguro para mascotas.",
+    "planSummary": "Has seleccionado el plan <strong>{{productName}}</strong> para tu {{petType}} ({{breed}}, {{age}} años).",
+    "monthlyPremium": "Tu prima mensual es:",
+    "yourDetails": "Tus Datos:",
+    "name": "Nombre:",
+    "email": "Correo Electrónico:",
+    "phone": "Teléfono:",
+    "confirmationEmailSent": "Se ha enviado un correo electrónico de confirmación con los detalles de tu póliza a {{email}}.",
+    "startNewQuote": "Iniciar Nueva Cotización"
+  },
+  "madeWithDyad": "Hecho con Dyad",
+  "notFound": {
+    "title": "404",
+    "oops": "¡Ups! Página no encontrada",
+    "returnHome": "Volver al Inicio"
+  }
+}

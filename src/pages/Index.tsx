@@ -3,12 +3,14 @@ import PetSelection from "@/components/PetSelection";
 import PetDetails from "@/components/PetDetails";
 import PricingDisplay from "@/components/PricingDisplay";
 import ProductSelection from "@/components/ProductSelection";
-import ContactDetailsForm from "@/components/ContactDetailsForm"; // New import
+import ContactDetailsForm from "@/components/ContactDetailsForm";
 import { MadeWithDyad } from "@/components/made-with-dyad";
+import LanguageSwitcher from "@/components/LanguageSwitcher"; // New import
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next"; // New import
 
-type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "productSelection" | "contactDetails" | "confirmation"; // Added new step
+type FunnelStep = "petSelection" | "petDetails" | "pricingDisplay" | "productSelection" | "contactDetails" | "confirmation";
 
 interface ProductVariant {
   id: string;
@@ -25,9 +27,10 @@ const Index = () => {
   const [basePrice, setBasePrice] = React.useState<number | null>(null);
   const [selectedProduct, setSelectedProduct] = React.useState<ProductVariant | null>(null);
   const [finalPrice, setFinalPrice] = React.useState<number | null>(null);
-  const [contactName, setContactName] = React.useState<string | null>(null); // New state for contact details
-  const [contactEmail, setContactEmail] = React.useState<string | null>(null); // New state for contact details
-  const [contactPhone, setContactPhone] = React.useState<string | null>(null); // New state for contact details
+  const [contactName, setContactName] = React.useState<string | null>(null);
+  const [contactEmail, setContactEmail] = React.useState<string | null>(null);
+  const [contactPhone, setContactPhone] = React.useState<string | null>(null);
+  const { t } = useTranslation(); // New: useTranslation hook
 
   const handlePetSelection = (selectedPetType: "cat" | "dog") => {
     setPetType(selectedPetType);
@@ -48,14 +51,14 @@ const Index = () => {
   const handleProductSelection = (product: ProductVariant, price: number) => {
     setSelectedProduct(product);
     setFinalPrice(price);
-    setCurrentStep("contactDetails"); // Transition to contact details
+    setCurrentStep("contactDetails");
   };
 
   const handleContactDetailsSubmit = (name: string, email: string, phone: string) => {
     setContactName(name);
     setContactEmail(email);
     setContactPhone(phone);
-    setCurrentStep("confirmation"); // Transition to final confirmation
+    setCurrentStep("confirmation");
   };
 
   const handleBackToDetails = () => {
@@ -90,7 +93,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4 relative"> {/* Added relative for LanguageSwitcher positioning */}
+      <LanguageSwitcher /> {/* New: Language switcher */}
+
       {currentStep === "petSelection" && (
         <PetSelection onSelectPet={handlePetSelection} selectedPetType={petType} />
       )}
@@ -137,27 +142,32 @@ const Index = () => {
       {currentStep === "confirmation" && selectedProduct && finalPrice !== null && contactName && contactEmail && (
         <Card className="w-full max-w-md mx-auto text-center">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold text-green-600">Congratulations!</CardTitle>
-            <CardDescription>You've successfully configured your pet insurance plan.</CardDescription>
+            <CardTitle className="text-3xl font-bold text-green-600">{t("confirmation.title")}</CardTitle>
+            <CardDescription>{t("confirmation.description")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-lg">
-              You selected the <strong className="text-primary">{selectedProduct.name}</strong> plan for your {petType} ({breed}, {age} years old).
-            </p>
-            <p className="text-2xl font-extrabold">Your monthly premium is: <span className="text-primary">${finalPrice.toFixed(2)}</span></p>
+            <p className="text-lg" dangerouslySetInnerHTML={{
+              __html: t("confirmation.planSummary", {
+                productName: selectedProduct.name,
+                petType: petType,
+                breed: breed,
+                age: age
+              })
+            }} />
+            <p className="text-2xl font-extrabold">{t("confirmation.monthlyPremium")} <span className="text-primary">${finalPrice.toFixed(2)}</span></p>
             <div className="border-t pt-4 space-y-2 text-left">
-              <h3 className="text-xl font-semibold">Your Details:</h3>
-              <p><strong>Name:</strong> {contactName}</p>
-              <p><strong>Email:</strong> {contactEmail}</p>
-              {contactPhone && <p><strong>Phone:</strong> {contactPhone}</p>}
+              <h3 className="text-xl font-semibold">{t("confirmation.yourDetails")}</h3>
+              <p><strong>{t("confirmation.name")}</strong> {contactName}</p>
+              <p><strong>{t("confirmation.email")}</strong> {contactEmail}</p>
+              {contactPhone && <p><strong>{t("confirmation.phone")}</strong> {contactPhone}</p>}
             </div>
             <p className="text-sm text-muted-foreground mt-2">
-              A confirmation email with your policy details has been sent to {contactEmail}.
+              {t("confirmation.confirmationEmailSent", { email: contactEmail })}
             </p>
           </CardContent>
           <CardFooter>
             <Button onClick={handleResetFunnel} className="w-full">
-              Start a New Quote
+              {t("confirmation.startNewQuote")}
             </Button>
           </CardFooter>
         </Card>

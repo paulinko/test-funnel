@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
+import { useTranslation } from "react-i18next"; // New import
 
 interface PricingDisplayProps {
   petType: "cat" | "dog";
@@ -16,6 +17,7 @@ const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, on
   const [price, setPrice] = React.useState<number | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
+  const { t } = useTranslation(); // New: useTranslation hook
 
   React.useEffect(() => {
     const fetchPrice = async () => {
@@ -43,30 +45,30 @@ const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, on
         }
 
         setPrice(basePrice);
-        showSuccess("Price fetched successfully!");
+        showSuccess(t("pricingDisplay.priceFetchedSuccess"));
       } catch (err) {
         console.error("Failed to fetch price:", err);
-        setError("Failed to fetch pricing. Please try again.");
-        showError("Failed to fetch pricing.");
+        setError(t("pricingDisplay.errorFetchingPrice"));
+        showError(t("pricingDisplay.errorToast"));
       } finally {
         setLoading(false);
       }
     };
 
     fetchPrice();
-  }, [petType, breed, age]);
+  }, [petType, breed, age, t]); // Added t to dependency array
 
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Your Insurance Quote</CardTitle>
-        <CardDescription>Here's the personalized quote for your pet.</CardDescription>
+        <CardTitle className="text-2xl font-bold">{t("pricingDisplay.title")}</CardTitle>
+        <CardDescription>{t("pricingDisplay.description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {loading && (
           <div className="flex items-center justify-center space-x-2 py-8">
             <Loader2 className="h-6 w-6 animate-spin" />
-            <p className="text-lg text-muted-foreground">Calculating your price...</p>
+            <p className="text-lg text-muted-foreground">{t("pricingDisplay.calculating")}</p>
           </div>
         )}
         {error && (
@@ -77,16 +79,16 @@ const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, on
         {price !== null && !loading && (
           <div className="space-y-4">
             <div className="text-center">
-              <p className="text-lg text-muted-foreground">Estimated Monthly Premium</p>
+              <p className="text-lg text-muted-foreground">{t("pricingDisplay.estimatedMonthlyPremium")}</p>
               <p className="text-5xl font-extrabold text-primary">${price.toFixed(2)}</p>
             </div>
             <div className="border-t pt-4 space-y-2">
-              <h3 className="text-xl font-semibold">Product Configuration:</h3>
-              <p><strong>Pet Type:</strong> {petType.charAt(0).toUpperCase() + petType.slice(1)}</p>
-              <p><strong>Breed:</strong> {breed}</p>
-              <p><strong>Age:</strong> {age} years</p>
+              <h3 className="text-xl font-semibold">{t("pricingDisplay.productConfiguration")}</h3>
+              <p><strong>{t("pricingDisplay.petType")}</strong> {petType.charAt(0).toUpperCase() + petType.slice(1)}</p>
+              <p><strong>{t("pricingDisplay.breed")}</strong> {breed}</p>
+              <p><strong>{t("pricingDisplay.age")}</strong> {age} {t("pricingDisplay.years")}</p>
               <p className="text-sm text-muted-foreground mt-2">
-                This is a mock price and configuration. Actual terms and conditions apply.
+                {t("pricingDisplay.mockPriceDisclaimer")}
               </p>
             </div>
           </div>
@@ -94,10 +96,10 @@ const PricingDisplay: React.FC<PricingDisplayProps> = ({ petType, breed, age, on
       </CardContent>
       <CardFooter className="flex justify-between gap-4">
         <Button variant="outline" onClick={onBackToSelection} className="w-full">
-          Start Over
+          {t("pricingDisplay.startOver")}
         </Button>
         <Button onClick={() => price !== null && onContinue(price)} disabled={loading || price === null} className="w-full">
-          Continue
+          {t("pricingDisplay.continue")}
         </Button>
       </CardFooter>
     </Card>

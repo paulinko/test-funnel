@@ -1,0 +1,99 @@
+{
+  "petSelection": {
+    "title": "Pet Insurance Funnel",
+    "description": "Let's get started! What kind of pet do you have?",
+    "dog": "Dog",
+    "cat": "Cat",
+    "next": "Next"
+  },
+  "petDetails": {
+    "dogTitle": "Tell Us About Your Dog",
+    "catTitle": "Tell Us About Your Cat",
+    "description": "We need a few more details to get your quote.",
+    "breed": "Breed",
+    "selectDogBreed": "Select your dog's breed",
+    "selectCatBreed": "Select your cat's breed",
+    "age": "Age (in years)",
+    "agePlaceholder": "e.g., 3",
+    "back": "Back",
+    "getPrice": "Get Price",
+    "validation": {
+      "selectBreed": "Please select a breed.",
+      "validAge": "Please enter a valid age (1-25 years)."
+    }
+  },
+  "pricingDisplay": {
+    "title": "Your Insurance Quote",
+    "description": "Here's the personalized quote for your pet.",
+    "calculating": "Calculating your price...",
+    "estimatedMonthlyPremium": "Estimated Monthly Premium",
+    "productConfiguration": "Product Configuration:",
+    "petType": "Pet Type:",
+    "breed": "Breed:",
+    "age": "Age:",
+    "years": "years",
+    "mockPriceDisclaimer": "This is a mock price and configuration. Actual terms and conditions apply.",
+    "startOver": "Start Over",
+    "continue": "Continue",
+    "errorFetchingPrice": "Failed to fetch pricing. Please try again.",
+    "priceFetchedSuccess": "Price fetched successfully!",
+    "errorToast": "Failed to fetch pricing."
+  },
+  "productSelection": {
+    "title": "Choose Your Plan",
+    "description": "Select the insurance plan that best fits your pet's needs.",
+    "select": "Select",
+    "planName": "Plan Name",
+    "planDescription": "Description",
+    "monthlyPrice": "Monthly Price",
+    "basicPlanName": "Basic Plan",
+    "basicPlanDescription": "Covers accidents and illnesses. Essential care for your pet.",
+    "standardPlanName": "Standard Plan",
+    "standardPlanDescription": "Includes Basic Plan plus routine wellness exams and vaccinations.",
+    "premiumPlanName": "Premium Plan",
+    "premiumPlanDescription": "Comprehensive coverage including dental care and behavioral therapy.",
+    "back": "Back",
+    "selectProduct": "Select Product",
+    "disclaimer": "Prices are estimates based on your pet's details: {{petType}}, {{breed}}, {{age}} years old.",
+    "validation": {
+      "selectProductVariant": "Please select a product variant."
+    },
+    "successToast": "You selected the {{productName}}!"
+  },
+  "contactDetails": {
+    "title": "Your Contact Details",
+    "description": "Please provide your contact information to finalize your plan.",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "emailAddress": "Email Address",
+    "emailAddressPlaceholder": "john.doe@example.com",
+    "phoneNumber": "Phone Number (Optional)",
+    "phoneNumberPlaceholder": "+15551234567",
+    "back": "Back",
+    "confirmPlan": "Confirm Plan",
+    "validation": {
+      "enterName": "Please enter your name.",
+      "validEmail": "Please enter a valid email address.",
+      "validPhone": "Please enter a valid phone number (10-15 digits, optional +)."
+    },
+    "successToast": "Contact details saved!"
+  },
+  "confirmation": {
+    "title": "Congratulations!",
+    "description": "You've successfully configured your pet insurance plan.",
+    "planSummary": "You selected the <strong>{{productName}}</strong> plan for your {{petType}} ({{breed}}, {{age}} years old).",
+    "monthlyPremium": "Your monthly premium is:",
+    "yourDetails": "Your Details:",
+    "name": "Name:",
+    "email": "Email:",
+    "phone": "Phone:",
+    "confirmationEmailSent": "A confirmation email with your policy details has been sent to {{email}}.",
+    "startNewQuote": "Start a New Quote"
+  },
+  "madeWithDyad": "Made with Dyad",
+  "notFound": {
+    "title": "404",
+    "oops": "Oops! Page not found",
+    "returnHome": "Return to Home"
+  }
+}

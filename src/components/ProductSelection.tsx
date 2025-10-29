@@ -5,6 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { showError, showSuccess } from "@/utils/toast";
+import { useTranslation } from "react-i18next"; // New import
 
 interface ProductVariant {
   id: string;
@@ -24,24 +25,25 @@ interface ProductSelectionProps {
 
 const ProductSelection: React.FC<ProductSelectionProps> = ({ petType, breed, age, basePrice, onSelectProduct, onBack }) => {
   const [selectedProductId, setSelectedProductId] = React.useState<string | null>(null);
+  const { t } = useTranslation(); // New: useTranslation hook
 
   const productVariants: ProductVariant[] = [
     {
       id: "basic",
-      name: "Basic Plan",
-      description: "Covers accidents and illnesses. Essential care for your pet.",
+      name: t("productSelection.basicPlanName"),
+      description: t("productSelection.basicPlanDescription"),
       priceFactor: 1.0,
     },
     {
       id: "standard",
-      name: "Standard Plan",
-      description: "Includes Basic Plan plus routine wellness exams and vaccinations.",
+      name: t("productSelection.standardPlanName"),
+      description: t("productSelection.standardPlanDescription"),
       priceFactor: 1.3,
     },
     {
       id: "premium",
-      name: "Premium Plan",
-      description: "Comprehensive coverage including dental care and behavioral therapy.",
+      name: t("productSelection.premiumPlanName"),
+      description: t("productSelection.premiumPlanDescription"),
       priceFactor: 1.7,
     },
   ];
@@ -53,31 +55,31 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ petType, breed, age
 
   const handleSubmit = () => {
     if (!selectedProductId) {
-      showError("Please select a product variant.");
+      showError(t("productSelection.validation.selectProductVariant"));
       return;
     }
     const selectedProduct = productVariants.find(p => p.id === selectedProductId);
     if (selectedProduct) {
       const finalPrice = parseFloat(calculateVariantPrice(selectedProduct.priceFactor));
       onSelectProduct(selectedProduct, finalPrice);
-      showSuccess(`You selected the ${selectedProduct.name}!`);
+      showSuccess(t("productSelection.successToast", { productName: selectedProduct.name }));
     }
   };
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Choose Your Plan</CardTitle>
-        <CardDescription>Select the insurance plan that best fits your pet's needs.</CardDescription>
+        <CardTitle className="text-2xl font-bold">{t("productSelection.title")}</CardTitle>
+        <CardDescription>{t("productSelection.description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[50px]">Select</TableHead>
-              <TableHead>Plan Name</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead className="text-right">Monthly Price</TableHead>
+              <TableHead className="w-[50px]">{t("productSelection.select")}</TableHead>
+              <TableHead>{t("productSelection.planName")}</TableHead>
+              <TableHead>{t("productSelection.planDescription")}</TableHead>
+              <TableHead className="text-right">{t("productSelection.monthlyPrice")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -103,15 +105,15 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({ petType, breed, age
         </Table>
         <div className="flex justify-between gap-4">
           <Button variant="outline" onClick={onBack} className="w-full">
-            Back
+            {t("productSelection.back")}
           </Button>
           <Button onClick={handleSubmit} disabled={!selectedProductId} className="w-full">
-            Select Product
+            {t("productSelection.selectProduct")}
           </Button>
         </div>
       </CardContent>
       <CardFooter className="text-sm text-muted-foreground">
-        <p>Prices are estimates based on your pet's details: {petType.charAt(0).toUpperCase() + petType.slice(1)}, {breed}, {age} years old.</p>
+        <p>{t("productSelection.disclaimer", { petType: petType.charAt(0).toUpperCase() + petType.slice(1), breed, age })}</p>
       </CardFooter>
     </Card>
   );
