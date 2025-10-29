@@ -22,6 +22,7 @@ interface ProductVariant {
 const Index = () => {
   const [currentStep, setCurrentStep] = React.useState<FunnelStep>("petSelection");
   const [petType, setPetType] = React.useState<"cat" | "dog" | null>(null);
+  const [petName, setPetName] = React.useState<string | null>(null); // New state for pet name
   const [breed, setBreed] = React.useState<string | null>(null);
   const [age, setAge] = React.useState<number | null>(null);
   const [basePrice, setBasePrice] = React.useState<number | null>(null);
@@ -41,7 +42,8 @@ const Index = () => {
     setCurrentStep("petDetails");
   };
 
-  const handlePetDetailsSubmit = async (selectedBreed: string, selectedAge: number) => {
+  const handlePetDetailsSubmit = async (submittedPetName: string, selectedBreed: string, selectedAge: number) => {
+    setPetName(submittedPetName); // Set the new pet name
     setBreed(selectedBreed);
     setAge(selectedAge);
 
@@ -63,11 +65,11 @@ const Index = () => {
       }
 
       setBasePrice(calculatedBasePrice);
-      showSuccess(t("common.priceCalculatedSuccess")); // New translation key
+      showSuccess(t("common.priceCalculatedSuccess"));
       setCurrentStep("priceCustomization");
     } catch (err) {
       console.error("Failed to calculate base price:", err);
-      showError(t("common.errorCalculatingPrice")); // New translation key
+      showError(t("common.errorCalculatingPrice"));
     }
   };
 
@@ -94,6 +96,7 @@ const Index = () => {
     // Log the data that would be sent to the server
     console.log("Data to be sent to server:", {
       petType,
+      petName, // Include petName in the log
       breed,
       age,
       selectedProduct,
@@ -123,6 +126,7 @@ const Index = () => {
 
   const handleResetFunnel = () => {
     setPetType(null);
+    setPetName(null); // Reset pet name
     setBreed(null);
     setAge(null);
     setBasePrice(null);
@@ -189,6 +193,7 @@ const Index = () => {
               __html: t("confirmation.planSummary", {
                 productName: selectedProduct.name,
                 petType: petType,
+                petName: petName, // Include petName in confirmation summary
                 breed: breed,
                 age: age
               })

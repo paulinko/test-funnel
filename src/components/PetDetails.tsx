@@ -5,11 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { showError } from "@/utils/toast";
-import { useTranslation } from "react-i18next"; // New import
+import { useTranslation } from "react-i18next";
 
 interface PetDetailsProps {
   petType: "cat" | "dog";
-  onDetailsSubmit: (breed: string, age: number) => void;
+  onDetailsSubmit: (petName: string, breed: string, age: number) => void; // Updated to include petName
   onBack: () => void;
 }
 
@@ -25,14 +25,19 @@ const mockBreeds = {
 };
 
 const PetDetails: React.FC<PetDetailsProps> = ({ petType, onDetailsSubmit, onBack }) => {
+  const [petName, setPetName] = React.useState<string>(""); // New state for pet name
   const [selectedBreed, setSelectedBreed] = React.useState<string>("");
   const [age, setAge] = React.useState<string>("");
-  const { t } = useTranslation(); // New: useTranslation hook
+  const { t } = useTranslation();
 
   const breeds = mockBreeds[petType];
 
   const handleSubmit = () => {
     const parsedAge = parseInt(age, 10);
+    if (!petName.trim()) { // Validate pet name
+      showError(t("petDetails.validation.enterPetName"));
+      return;
+    }
     if (!selectedBreed) {
       showError(t("petDetails.validation.selectBreed"));
       return;
@@ -41,7 +46,7 @@ const PetDetails: React.FC<PetDetailsProps> = ({ petType, onDetailsSubmit, onBac
       showError(t("petDetails.validation.validAge"));
       return;
     }
-    onDetailsSubmit(selectedBreed, parsedAge);
+    onDetailsSubmit(petName.trim(), selectedBreed, parsedAge); // Pass petName to onDetailsSubmit
   };
 
   return (
@@ -53,6 +58,18 @@ const PetDetails: React.FC<PetDetailsProps> = ({ petType, onDetailsSubmit, onBac
         <CardDescription>{t("petDetails.description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* New Pet Name Input */}
+        <div className="space-y-2">
+          <Label htmlFor="pet-name">{t("petDetails.petName")}</Label>
+          <Input
+            id="pet-name"
+            type="text"
+            placeholder={t("petDetails.petNamePlaceholder")}
+            value={petName}
+            onChange={(e) => setPetName(e.target.value)}
+          />
+        </div>
+        {/* Existing Breed Selection */}
         <div className="space-y-2">
           <Label htmlFor="breed">{t("petDetails.breed")}</Label>
           <Select onValueChange={setSelectedBreed} value={selectedBreed}>
@@ -68,6 +85,7 @@ const PetDetails: React.FC<PetDetailsProps> = ({ petType, onDetailsSubmit, onBac
             </SelectContent>
           </Select>
         </div>
+        {/* Existing Age Input */}
         <div className="space-y-2">
           <Label htmlFor="age">{t("petDetails.age")}</Label>
           <Input
