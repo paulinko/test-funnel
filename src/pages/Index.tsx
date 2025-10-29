@@ -31,6 +31,13 @@ const Index = () => {
   const [contactName, setContactName] = React.useState<string | null>(null);
   const [contactEmail, setContactEmail] = React.useState<string | null>(null);
   const [contactPhone, setContactPhone] = React.useState<string | null>(null);
+  // New state for address details
+  const [addressLine1, setAddressLine1] = React.useState<string | null>(null);
+  const [addressLine2, setAddressLine2] = React.useState<string | null>(null);
+  const [city, setCity] = React.useState<string | null>(null);
+  const [zipCode, setZipCode] = React.useState<string | null>(null);
+  const [country, setCountry] = React.useState<string | null>(null);
+
   const [preexistingCoverage, setPreexistingCoverage] = React.useState<boolean>(false);
   const [worldwideCoverage, setWorldwideCoverage] = React.useState<boolean>(false);
   const [yearlyDeductible, setYearlyDeductible] = React.useState<number>(300); // Default to 300
@@ -91,15 +98,29 @@ const Index = () => {
     setCurrentStep("contactDetails");
   };
 
-  const handleContactDetailsSubmit = (name: string, email: string, phone: string) => {
+  const handleContactDetailsSubmit = (
+    name: string,
+    email: string,
+    phone: string,
+    addr1: string,
+    addr2: string,
+    cityVal: string,
+    zip: string,
+    countryVal: string
+  ) => {
     setContactName(name);
     setContactEmail(email);
     setContactPhone(phone);
+    setAddressLine1(addr1);
+    setAddressLine2(addr2);
+    setCity(cityVal);
+    setZipCode(zip);
+    setCountry(countryVal);
 
     // Log the data that would be sent to the server
     console.log("Data to be sent to server:", {
       petType,
-      petName, // Include petName in the log
+      petName,
       breed,
       age,
       selectedProduct,
@@ -107,10 +128,15 @@ const Index = () => {
       preexistingCoverage,
       worldwideCoverage,
       yearlyDeductible,
-      coPayCoveragePercentage, // Include in log
+      coPayCoveragePercentage,
       contactName: name,
       contactEmail: email,
       contactPhone: phone,
+      addressLine1: addr1,
+      addressLine2: addr2,
+      city: cityVal,
+      zipCode: zip,
+      country: countryVal,
     });
 
     setCurrentStep("confirmation");
@@ -125,12 +151,17 @@ const Index = () => {
     setContactName(null);
     setContactEmail(null);
     setContactPhone(null);
+    setAddressLine1(null);
+    setAddressLine2(null);
+    setCity(null);
+    setZipCode(null);
+    setCountry(null);
     setCurrentStep("priceCustomization");
   };
 
   const handleResetFunnel = () => {
     setPetType(null);
-    setPetName(null); // Reset pet name
+    setPetName(null);
     setBreed(null);
     setAge(null);
     setBasePrice(null);
@@ -139,10 +170,15 @@ const Index = () => {
     setContactName(null);
     setContactEmail(null);
     setContactPhone(null);
+    setAddressLine1(null);
+    setAddressLine2(null);
+    setCity(null);
+    setZipCode(null);
+    setCountry(null);
     setPreexistingCoverage(false);
     setWorldwideCoverage(false);
-    setYearlyDeductible(300); // Reset to default
-    setCoPayCoveragePercentage(100); // Reset to default
+    setYearlyDeductible(300);
+    setCoPayCoveragePercentage(100);
     setCurrentStep("petSelection");
   };
 
@@ -174,7 +210,7 @@ const Index = () => {
           initialPreexistingCoverage={preexistingCoverage}
           initialWorldwideCoverage={worldwideCoverage}
           initialYearlyDeductible={yearlyDeductible}
-          initialCoPayCoveragePercentage={coPayCoveragePercentage} // Pass new prop
+          initialCoPayCoveragePercentage={coPayCoveragePercentage}
         />
       )}
 
@@ -185,6 +221,11 @@ const Index = () => {
           initialName={contactName || ""}
           initialEmail={contactEmail || ""}
           initialPhone={contactPhone || ""}
+          initialAddressLine1={addressLine1 || ""}
+          initialAddressLine2={addressLine2 || ""}
+          initialCity={city || ""}
+          initialZipCode={zipCode || ""}
+          initialCountry={country || ""}
         />
       )}
 
@@ -199,7 +240,7 @@ const Index = () => {
               __html: t("confirmation.planSummary", {
                 productName: selectedProduct.name,
                 petType: petType,
-                petName: petName, // Include petName in confirmation summary
+                petName: petName,
                 breed: breed,
                 age: age
               })
@@ -210,6 +251,12 @@ const Index = () => {
               <p><strong>{t("confirmation.name")}</strong> {contactName}</p>
               <p><strong>{t("confirmation.email")}</strong> {contactEmail}</p>
               {contactPhone && <p><strong>{t("confirmation.phone")}</strong> {contactPhone}</p>}
+              <h3 className="text-xl font-semibold mt-4">{t("confirmation.yourAddress")}</h3>
+              <p><strong>{t("confirmation.addressLine1")}</strong> {addressLine1}</p>
+              {addressLine2 && <p><strong>{t("confirmation.addressLine2")}</strong> {addressLine2}</p>}
+              <p><strong>{t("confirmation.city")}</strong> {city}</p>
+              <p><strong>{t("confirmation.zipCode")}</strong> {zipCode}</p>
+              <p><strong>{t("confirmation.country")}</strong> {country}</p>
               <h3 className="text-xl font-semibold mt-4">{t("confirmation.coverageDetails")}</h3>
               <p><strong>{t("confirmation.planType")}</strong> {selectedProduct.name}</p>
               <p><strong>{t("confirmation.preexistingConditions")}</strong> {preexistingCoverage ? t("common.yes") : t("common.no")}</p>
